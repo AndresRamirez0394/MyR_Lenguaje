@@ -1,0 +1,257 @@
+class SemCube:
+
+    def __init__(self):
+
+        self.semantic_cube = {
+        "int": {
+        "int": {
+            "+": "int",
+            "-": "int",
+            "*": "int",
+            "/": "float",
+            ">": "bool",
+            "<": "bool",
+            "AND": 'ERROR',
+            "OR": 'ERROR',
+            "<=": "bool",
+            ">=": "bool",
+            "==": "bool",
+            "!=": "bool",
+            "=": "int"            
+        },
+        "float": {
+            "+": "float",
+            "-": "float",
+            "*": "float",
+            "/": "float",
+            ">": "bool",
+            "<": "bool",
+            "AND": 'ERROR',
+            "OR": 'ERROR',
+            "<=": "bool",
+            ">=": "bool",
+            "==": "bool",
+            "!=": "bool",
+            "=": "float"  
+        },
+        "char": {
+            "+": "ERROR",
+            "-": "ERROR",
+            "*": "ERROR",
+            "/": "ERROR",
+            ">": "ERROR",
+            "<": "ERROR",
+            "AND": 'ERROR',
+            "OR": 'ERROR',
+            "<=": "ERROR",
+            ">=": "ERROR",
+            "==": "ERROR",
+            "!=": "ERROR",
+            "=": "ERROR"
+        },
+        "bool": {
+            "+": "ERROR",
+            "-": "ERROR",
+            "*": "ERROR",
+            "/": "ERROR",
+            ">": "ERROR",
+            "<": "ERROR",
+            "AND": 'ERROR',
+            "OR": 'ERROR',
+            "<=": "ERROR",
+            ">=": "ERROR",
+            "==": "ERROR",
+            "!=": "ERROR",
+            "=": "ERROR"
+        }
+    },
+    'float': {
+        'float': {
+            "+": "float",
+            "-": "float",
+            "*": "float",
+            "/": "float",
+            ">": "bool",
+            "<": "bool",
+            "AND": 'ERROR',
+            "OR": 'ERROR',
+            "<=": "bool",
+            ">=": "bool",
+            "==": "bool",
+            "!=": "bool",
+            "=": "float"
+        },
+        'int': {
+            "+": "float",
+            "-": "float",
+            "*": "float",
+            "/": "ERROR",
+            ">": "float",
+            "<": "bool",
+            "AND": 'ERROR',
+            "OR": 'ERROR',
+            "<=": "bool",
+            ">=": "bool",
+            "==": "bool",
+            "!=": "bool",
+            "=": "float"
+        },
+        'bool': {
+            "+": "ERROR",
+            "-": "ERROR",
+            "*": "ERROR",
+            "/": "ERROR",
+            ">": "ERROR",
+            "<": "ERROR",
+            "AND": 'ERROR',
+            "OR": 'ERROR',
+            "<=": "ERROR",
+            ">=": "ERROR",
+            "==": "ERROR",
+            "!=": "ERROR",
+            "=": "ERROR"
+        },
+        'char': {
+             "+": "ERROR",
+            "-": "ERROR",
+            "*": "ERROR",
+            "/": "ERROR",
+            ">": "ERROR",
+            "<": "ERROR",
+            "AND": 'ERROR',
+            "OR": 'ERROR',
+            "<=": "ERROR",
+            ">=": "ERROR",
+            "==": "ERROR",
+            "!=": "ERROR",
+            "=": "ERROR"
+        }
+    },
+    'char':{
+        'char':{
+             "+": "ERROR",
+            "-": "ERROR",
+            "*": "ERROR",
+            "/": "ERROR",
+            ">": "ERROR",
+            "<": "ERROR",
+            "AND": 'ERROR',
+            "OR": 'ERROR',
+            "<=": "ERROR",
+            ">=": "ERROR",
+            "==": "ERROR",
+            "!=": "ERROR",
+            "=": "char"
+        },
+        'int': {
+             "+": "ERROR",
+            "-": "ERROR",
+            "*": "ERROR",
+            "/": "ERROR",
+            ">": "ERROR",
+            "<": "ERROR",
+            "AND": 'ERROR',
+            "OR": 'ERROR',
+            "<=": "ERROR",
+            ">=": "ERROR",
+            "==": "ERROR",
+            "!=": "ERROR",
+            "=": "ERROR"
+        },
+        'float':{
+             "+": "ERROR",
+            "-": "ERROR",
+            "*": "ERROR",
+            "/": "ERROR",
+            ">": "ERROR",
+            "<": "ERROR",
+            "AND": 'ERROR',
+            "OR": 'ERROR',
+            "<=": "ERROR",
+            ">=": "ERROR",
+            "==": "ERROR",
+            "!=": "ERROR",
+            "=": "ERROR"
+        },
+        'bool': {
+             "+": "ERROR",
+            "-": "ERROR",
+            "*": "ERROR",
+            "/": "ERROR",
+            ">": "ERROR",
+            "<": "ERROR",
+            "AND": 'ERROR',
+            "OR": 'ERROR',
+            "<=": "ERROR",
+            ">=": "ERROR",
+            "==": "ERROR",
+            "!=": "ERROR",
+            "=": "ERROR"
+        }
+    },
+    'bool': {
+        'bool':{
+         "+": "ERROR",
+            "-": "ERROR",
+            "*": "ERROR",
+            "/": "ERROR",
+            ">": "ERROR",
+            "<": "ERROR",
+            "AND": 'bool',
+            "OR": 'bool',
+            "<=": "ERROR",
+            ">=": "ERROR",
+            "==": "bool",
+            "!=": "bool",
+            "=": "bool"
+        },
+        'char':{
+             "+": "ERROR",
+            "-": "ERROR",
+            "*": "ERROR",
+            "/": "ERROR",
+            ">": "ERROR",
+            "<": "ERROR",
+            "AND": 'ERROR',
+            "OR": 'ERROR',
+            "<=": "ERROR",
+            ">=": "ERROR",
+            "==": "ERROR",
+            "!=": "ERROR",
+            "=": "ERROR"
+        },
+        'int':{
+             "+": "ERROR",
+            "-": "ERROR",
+            "*": "ERROR",
+            "/": "ERROR",
+            ">": "ERROR",
+            "<": "ERROR",
+            "AND": 'ERROR',
+            "OR": 'ERROR',
+            "<=": "ERROR",
+            ">=": "ERROR",
+            "==": "ERROR",
+            "!=": "ERROR",
+            "=": "ERROR"
+        },
+        'float':{
+             "+": "ERROR",
+            "-": "ERROR",
+            "*": "ERROR",
+            "/": "ERROR",
+            ">": "ERROR",
+            "<": "ERROR",
+            "AND": 'ERROR',
+            "OR": 'ERROR',
+            "<=": "ERROR",
+            ">=": "ERROR",
+            "==": "ERROR",
+            "!=": "ERROR",
+            "=": "ERROR"
+        }
+    }
+}
+        
+    def result_type(self, left, right, operator):
+        return self.semantic_cube[left, right, operator]

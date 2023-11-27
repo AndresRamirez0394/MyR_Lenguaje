@@ -1,0 +1,38 @@
+programa test;
+
+function void fact(int i){
+    int k;
+    int prod; prod = 1;
+    for k = 1; k <= i do {
+        prod = prod * k;
+        k = k + 1;
+    }
+    OUT(prod);
+}
+
+function void fibo(int n){
+    int result; result = 1;
+    int prev; prev = -1;
+    int p;
+    int sum;
+    for p = 0; p <= n do {
+        sum = result + prev;
+        prev = result;
+        result = sum;
+        p = p + 1;
+    }
+    OUT(result);
+}
+
+main 
+{
+    int x; x = 10;
+    int j;
+    j = 12;
+    fact(x);
+    for x = 15; x < 18 do {
+        x = x + 1;
+        j = j * 2;
+    }
+    OUT(j);
+}

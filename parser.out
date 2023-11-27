@@ -1,0 +1,3482 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    BOOL
+    COLON
+    COMMENT
+    CTEB
+    CTEC
+    DECREMENT
+    DIVEQUAL
+    ELSE
+    FALSE
+    INCREMENT
+    MINUSEQUAL
+    PERIOD
+    PLUSEQUAL
+    START
+    TIMESEQUAL
+    TO
+    TRUE
+
+Grammar
+
+Rule 0     S' -> programa
+Rule 1     programa -> PROGRAMA ID SEMI bloque main
+Rule 2     main -> MAIN bloque_use
+Rule 3     bloque_use -> LBRACE bloque RBRACE
+Rule 4     bloque -> estatuto bloque
+Rule 5     bloque -> empty
+Rule 6     estatuto -> asigna
+Rule 7     estatuto -> asignavar
+Rule 8     estatuto -> asignaarr
+Rule 9     estatuto -> vararr
+Rule 10    estatuto -> var
+Rule 11    estatuto -> func
+Rule 12    estatuto -> ifelse
+Rule 13    estatuto -> while
+Rule 14    estatuto -> forloop
+Rule 15    estatuto -> write
+Rule 16    estatuto -> read
+Rule 17    estatuto -> fun_esp
+Rule 18    estatuto -> cvar
+Rule 19    estatuto -> cfunc
+Rule 20    var -> type ID SEMI
+Rule 21    type -> INT
+Rule 22    type -> FLOAT
+Rule 23    type -> CHAR
+Rule 24    asigna -> ID EQUALS lit SEMI
+Rule 25    asignavar -> ID EQUALS expr SEMI
+Rule 26    lit -> CTEI
+Rule 27    lit -> CTEF
+Rule 28    write -> OUT LPAREN write_aux RPAREN SEMI
+Rule 29    write_aux -> write_aux2
+Rule 30    write_aux -> write_aux2 COMMA write_aux
+Rule 31    write_aux2 -> cvar
+Rule 32    write_aux2 -> LETRERO
+Rule 33    forloop -> FOR asignavar forJump texp forQuad DO bloque_use fill_for
+Rule 34    forJump -> <empty>
+Rule 35    forQuad -> <empty>
+Rule 36    fill_for -> <empty>
+Rule 37    ifelse -> IF texp gotoQuadIf THEN bloque_use fill_if
+Rule 38    gotoQuadIf -> <empty>
+Rule 39    fill_if -> <empty>
+Rule 40    while -> WHILE gotoQuadWhile LPAREN aexp RPAREN gotofQuadWhile DO bloque_use fill_while
+Rule 41    gotoQuadWhile -> <empty>
+Rule 42    gotofQuadWhile -> <empty>
+Rule 43    fill_while -> <empty>
+Rule 44    cvar -> ID
+Rule 45    cvar -> ID LBRACKET expr RBRACKET
+Rule 46    vararr -> type ID LBRACKET lit RBRACKET SEMI
+Rule 47    vararr -> type ID LBRACKET expr RBRACKET SEMI
+Rule 48    asignaarr -> ID LBRACKET expr RBRACKET EQUALS expr SEMI
+Rule 49    read -> GET LPAREN read_aux RPAREN
+Rule 50    read_aux -> ID
+Rule 51    read_aux -> ID COMMA read_aux
+Rule 52    body2 -> LBRACE bloque end RBRACE
+Rule 53    end -> <empty>
+Rule 54    body1 -> LBRACE bloque RETURN RBRACE
+Rule 55    aexp -> texp
+Rule 56    aexp -> texp AND texp
+Rule 57    aexp -> texp OR texp
+Rule 58    texp -> expr
+Rule 59    texp -> expr LT expr
+Rule 60    texp -> expr GT expr
+Rule 61    texp -> expr LE expr
+Rule 62    texp -> expr GE expr
+Rule 63    texp -> expr EQ expr
+Rule 64    texp -> expr NE expr
+Rule 65    expr -> term
+Rule 66    expr -> expr PLUS term
+Rule 67    expr -> expr MINUS term
+Rule 68    term -> fact
+Rule 69    term -> term TIMES fact
+Rule 70    term -> term DIVIDE fact
+Rule 71    fact -> LPAREN aexp RPAREN
+Rule 72    fact -> lit
+Rule 73    fact -> cvar
+Rule 74    fact -> cfunc
+Rule 75    cfunc -> ID LPAREN cvar RPAREN SEMI
+Rule 76    cfunc -> ID LPAREN RPAREN SEMI
+Rule 77    func -> FUNCTION type ID eraQuad param body1 fillFunc
+Rule 78    func -> FUNCTION VOID ID eraQuad param body2 fillFunc
+Rule 79    funcVar -> type ID
+Rule 80    eraQuad -> <empty>
+Rule 81    fillFunc -> <empty>
+Rule 82    param -> LPAREN RPAREN
+Rule 83    param -> LPAREN param_aux RPAREN
+Rule 84    param_aux -> funcVar
+Rule 85    param_aux -> funcVar COMMA param_aux
+Rule 86    fun_esp -> draw_line
+Rule 87    endfunc -> <empty>
+Rule 88    draw_line -> DRAW CTEI CTEI CTEI CTEI
+Rule 89    empty -> <empty>
+
+Terminals, with rules where they appear
+
+AND                  : 56
+BOOL                 : 
+CHAR                 : 23
+COLON                : 
+COMMA                : 30 51 85
+COMMENT              : 
+CTEB                 : 
+CTEC                 : 
+CTEF                 : 27
+CTEI                 : 26 88 88 88 88
+DECREMENT            : 
+DIVEQUAL             : 
+DIVIDE               : 70
+DO                   : 33 40
+DRAW                 : 88
+ELSE                 : 
+EQ                   : 63
+EQUALS               : 24 25 48
+FALSE                : 
+FLOAT                : 22
+FOR                  : 33
+FUNCTION             : 77 78
+GE                   : 62
+GET                  : 49
+GT                   : 60
+ID                   : 1 20 24 25 44 45 46 47 48 50 51 75 76 77 78 79
+IF                   : 37
+INCREMENT            : 
+INT                  : 21
+LBRACE               : 3 52 54
+LBRACKET             : 45 46 47 48
+LE                   : 61
+LETRERO              : 32
+LPAREN               : 28 40 49 71 75 76 82 83
+LT                   : 59
+MAIN                 : 2
+MINUS                : 67
+MINUSEQUAL           : 
+NE                   : 64
+OR                   : 57
+OUT                  : 28
+PERIOD               : 
+PLUS                 : 66
+PLUSEQUAL            : 
+PROGRAMA             : 1
+RBRACE               : 3 52 54
+RBRACKET             : 45 46 47 48
+RETURN               : 54
+RPAREN               : 28 40 49 71 75 76 82 83
+SEMI                 : 1 20 24 25 28 46 47 48 75 76
+START                : 
+THEN                 : 37
+TIMES                : 69
+TIMESEQUAL           : 
+TO                   : 
+TRUE                 : 
+VOID                 : 78
+WHILE                : 40
+error                : 
+
+Nonterminals, with rules where they appear
+
+aexp                 : 40 71
+asigna               : 6
+asignaarr            : 8
+asignavar            : 7 33
+bloque               : 1 3 4 52 54
+bloque_use           : 2 33 37 40
+body1                : 77
+body2                : 78
+cfunc                : 19 74
+cvar                 : 18 31 73 75
+draw_line            : 86
+empty                : 5
+end                  : 52
+endfunc              : 
+eraQuad              : 77 78
+estatuto             : 4
+expr                 : 25 45 47 48 48 58 59 59 60 60 61 61 62 62 63 63 64 64 66 67
+fact                 : 68 69 70
+fillFunc             : 77 78
+fill_for             : 33
+fill_if              : 37
+fill_while           : 40
+forJump              : 33
+forQuad              : 33
+forloop              : 14
+fun_esp              : 17
+func                 : 11
+funcVar              : 84 85
+gotoQuadIf           : 37
+gotoQuadWhile        : 40
+gotofQuadWhile       : 40
+ifelse               : 12
+lit                  : 24 46 72
+main                 : 1
+param                : 77 78
+param_aux            : 83 85
+programa             : 0
+read                 : 16
+read_aux             : 49 51
+term                 : 65 66 67 69 70
+texp                 : 33 37 55 56 56 57 57
+type                 : 20 46 47 77 79
+var                  : 10
+vararr               : 9
+while                : 13
+write                : 15
+write_aux            : 28 30
+write_aux2           : 29 30
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . programa
+    (1) programa -> . PROGRAMA ID SEMI bloque main
+
+    PROGRAMA        shift and go to state 2
+
+    programa                       shift and go to state 1
+
+state 1
+
+    (0) S' -> programa .
+
+
+
+state 2
+
+    (1) programa -> PROGRAMA . ID SEMI bloque main
+
+    ID              shift and go to state 3
+
+
+state 3
+
+    (1) programa -> PROGRAMA ID . SEMI bloque main
+
+    SEMI            shift and go to state 4
+
+
+state 4
+
+    (1) programa -> PROGRAMA ID SEMI . bloque main
+    (4) bloque -> . estatuto bloque
+    (5) bloque -> . empty
+    (6) estatuto -> . asigna
+    (7) estatuto -> . asignavar
+    (8) estatuto -> . asignaarr
+    (9) estatuto -> . vararr
+    (10) estatuto -> . var
+    (11) estatuto -> . func
+    (12) estatuto -> . ifelse
+    (13) estatuto -> . while
+    (14) estatuto -> . forloop
+    (15) estatuto -> . write
+    (16) estatuto -> . read
+    (17) estatuto -> . fun_esp
+    (18) estatuto -> . cvar
+    (19) estatuto -> . cfunc
+    (89) empty -> .
+    (24) asigna -> . ID EQUALS lit SEMI
+    (25) asignavar -> . ID EQUALS expr SEMI
+    (48) asignaarr -> . ID LBRACKET expr RBRACKET EQUALS expr SEMI
+    (46) vararr -> . type ID LBRACKET lit RBRACKET SEMI
+    (47) vararr -> . type ID LBRACKET expr RBRACKET SEMI
+    (20) var -> . type ID SEMI
+    (77) func -> . FUNCTION type ID eraQuad param body1 fillFunc
+    (78) func -> . FUNCTION VOID ID eraQuad param body2 fillFunc
+    (37) ifelse -> . IF texp gotoQuadIf THEN bloque_use fill_if
+    (40) while -> . WHILE gotoQuadWhile LPAREN aexp RPAREN gotofQuadWhile DO bloque_use fill_while
+    (33) forloop -> . FOR asignavar forJump texp forQuad DO bloque_use fill_for
+    (28) write -> . OUT LPAREN write_aux RPAREN SEMI
+    (49) read -> . GET LPAREN read_aux RPAREN
+    (86) fun_esp -> . draw_line
+    (44) cvar -> . ID
+    (45) cvar -> . ID LBRACKET expr RBRACKET
+    (75) cfunc -> . ID LPAREN cvar RPAREN SEMI
+    (76) cfunc -> . ID LPAREN RPAREN SEMI
+    (21) type -> . INT
+    (22) type -> . FLOAT
+    (23) type -> . CHAR
+    (88) draw_line -> . DRAW CTEI CTEI CTEI CTEI
+
+    MAIN            reduce using rule 89 (empty -> .)
+    ID              shift and go to state 5
+    FUNCTION        shift and go to state 24
+    IF              shift and go to state 25
+    WHILE           shift and go to state 26
+    FOR             shift and go to state 27
+    OUT             shift and go to state 28
+    GET             shift and go to state 29
+    INT             shift and go to state 31
+    FLOAT           shift and go to state 32
+    CHAR            shift and go to state 33
+    DRAW            shift and go to state 34
+
+    bloque                         shift and go to state 6
+    estatuto                       shift and go to state 7
+    empty                          shift and go to state 8
+    asigna                         shift and go to state 9
+    asignavar                      shift and go to state 10
+    asignaarr                      shift and go to state 11
+    vararr                         shift and go to state 12
+    var                            shift and go to state 13
+    func                           shift and go to state 14
+    ifelse                         shift and go to state 15
+    while                          shift and go to state 16
+    forloop                        shift and go to state 17
+    write                          shift and go to state 18
+    read                           shift and go to state 19
+    fun_esp                        shift and go to state 20
+    cvar                           shift and go to state 21
+    cfunc                          shift and go to state 22
+    type                           shift and go to state 23
+    draw_line                      shift and go to state 30
+
+state 5
+
+    (24) asigna -> ID . EQUALS lit SEMI
+    (25) asignavar -> ID . EQUALS expr SEMI
+    (48) asignaarr -> ID . LBRACKET expr RBRACKET EQUALS expr SEMI
+    (44) cvar -> ID .
+    (45) cvar -> ID . LBRACKET expr RBRACKET
+    (75) cfunc -> ID . LPAREN cvar RPAREN SEMI
+    (76) cfunc -> ID . LPAREN RPAREN SEMI
+
+    EQUALS          shift and go to state 35
+    LBRACKET        shift and go to state 36
+    ID              reduce using rule 44 (cvar -> ID .)
+    FUNCTION        reduce using rule 44 (cvar -> ID .)
+    IF              reduce using rule 44 (cvar -> ID .)
+    WHILE           reduce using rule 44 (cvar -> ID .)
+    FOR             reduce using rule 44 (cvar -> ID .)
+    OUT             reduce using rule 44 (cvar -> ID .)
+    GET             reduce using rule 44 (cvar -> ID .)
+    INT             reduce using rule 44 (cvar -> ID .)
+    FLOAT           reduce using rule 44 (cvar -> ID .)
+    CHAR            reduce using rule 44 (cvar -> ID .)
+    DRAW            reduce using rule 44 (cvar -> ID .)
+    MAIN            reduce using rule 44 (cvar -> ID .)
+    RBRACE          reduce using rule 44 (cvar -> ID .)
+    RETURN          reduce using rule 44 (cvar -> ID .)
+    LPAREN          shift and go to state 37
+
+
+state 6
+
+    (1) programa -> PROGRAMA ID SEMI bloque . main
+    (2) main -> . MAIN bloque_use
+
+    MAIN            shift and go to state 39
+
+    main                           shift and go to state 38
+
+state 7
+
+    (4) bloque -> estatuto . bloque
+    (4) bloque -> . estatuto bloque
+    (5) bloque -> . empty
+    (6) estatuto -> . asigna
+    (7) estatuto -> . asignavar
+    (8) estatuto -> . asignaarr
+    (9) estatuto -> . vararr
+    (10) estatuto -> . var
+    (11) estatuto -> . func
+    (12) estatuto -> . ifelse
+    (13) estatuto -> . while
+    (14) estatuto -> . forloop
+    (15) estatuto -> . write
+    (16) estatuto -> . read
+    (17) estatuto -> . fun_esp
+    (18) estatuto -> . cvar
+    (19) estatuto -> . cfunc
+    (89) empty -> .
+    (24) asigna -> . ID EQUALS lit SEMI
+    (25) asignavar -> . ID EQUALS expr SEMI
+    (48) asignaarr -> . ID LBRACKET expr RBRACKET EQUALS expr SEMI
+    (46) vararr -> . type ID LBRACKET lit RBRACKET SEMI
+    (47) vararr -> . type ID LBRACKET expr RBRACKET SEMI
+    (20) var -> . type ID SEMI
+    (77) func -> . FUNCTION type ID eraQuad param body1 fillFunc
+    (78) func -> . FUNCTION VOID ID eraQuad param body2 fillFunc
+    (37) ifelse -> . IF texp gotoQuadIf THEN bloque_use fill_if
+    (40) while -> . WHILE gotoQuadWhile LPAREN aexp RPAREN gotofQuadWhile DO bloque_use fill_while
+    (33) forloop -> . FOR asignavar forJump texp forQuad DO bloque_use fill_for
+    (28) write -> . OUT LPAREN write_aux RPAREN SEMI
+    (49) read -> . GET LPAREN read_aux RPAREN
+    (86) fun_esp -> . draw_line
+    (44) cvar -> . ID
+    (45) cvar -> . ID LBRACKET expr RBRACKET
+    (75) cfunc -> . ID LPAREN cvar RPAREN SEMI
+    (76) cfunc -> . ID LPAREN RPAREN SEMI
+    (21) type -> . INT
+    (22) type -> . FLOAT
+    (23) type -> . CHAR
+    (88) draw_line -> . DRAW CTEI CTEI CTEI CTEI
+
+    MAIN            reduce using rule 89 (empty -> .)
+    RBRACE          reduce using rule 89 (empty -> .)
+    RETURN          reduce using rule 89 (empty -> .)
+    ID              shift and go to state 5
+    FUNCTION        shift and go to state 24
+    IF              shift and go to state 25
+    WHILE           shift and go to state 26
+    FOR             shift and go to state 27
+    OUT             shift and go to state 28
+    GET             shift and go to state 29
+    INT             shift and go to state 31
+    FLOAT           shift and go to state 32
+    CHAR            shift and go to state 33
+    DRAW            shift and go to state 34
+
+    estatuto                       shift and go to state 7
+    bloque                         shift and go to state 40
+    empty                          shift and go to state 8
+    asigna                         shift and go to state 9
+    asignavar                      shift and go to state 10
+    asignaarr                      shift and go to state 11
+    vararr                         shift and go to state 12
+    var                            shift and go to state 13
+    func                           shift and go to state 14
+    ifelse                         shift and go to state 15
+    while                          shift and go to state 16
+    forloop                        shift and go to state 17
+    write                          shift and go to state 18
+    read                           shift and go to state 19
+    fun_esp                        shift and go to state 20
+    cvar                           shift and go to state 21
+    cfunc                          shift and go to state 22
+    type                           shift and go to state 23
+    draw_line                      shift and go to state 30
+
+state 8
+
+    (5) bloque -> empty .
+
+    MAIN            reduce using rule 5 (bloque -> empty .)
+    RBRACE          reduce using rule 5 (bloque -> empty .)
+    RETURN          reduce using rule 5 (bloque -> empty .)
+
+
+state 9
+
+    (6) estatuto -> asigna .
+
+    ID              reduce using rule 6 (estatuto -> asigna .)
+    FUNCTION        reduce using rule 6 (estatuto -> asigna .)
+    IF              reduce using rule 6 (estatuto -> asigna .)
+    WHILE           reduce using rule 6 (estatuto -> asigna .)
+    FOR             reduce using rule 6 (estatuto -> asigna .)
+    OUT             reduce using rule 6 (estatuto -> asigna .)
+    GET             reduce using rule 6 (estatuto -> asigna .)
+    INT             reduce using rule 6 (estatuto -> asigna .)
+    FLOAT           reduce using rule 6 (estatuto -> asigna .)
+    CHAR            reduce using rule 6 (estatuto -> asigna .)
+    DRAW            reduce using rule 6 (estatuto -> asigna .)
+    MAIN            reduce using rule 6 (estatuto -> asigna .)
+    RBRACE          reduce using rule 6 (estatuto -> asigna .)
+    RETURN          reduce using rule 6 (estatuto -> asigna .)
+
+
+state 10
+
+    (7) estatuto -> asignavar .
+
+    ID              reduce using rule 7 (estatuto -> asignavar .)
+    FUNCTION        reduce using rule 7 (estatuto -> asignavar .)
+    IF              reduce using rule 7 (estatuto -> asignavar .)
+    WHILE           reduce using rule 7 (estatuto -> asignavar .)
+    FOR             reduce using rule 7 (estatuto -> asignavar .)
+    OUT             reduce using rule 7 (estatuto -> asignavar .)
+    GET             reduce using rule 7 (estatuto -> asignavar .)
+    INT             reduce using rule 7 (estatuto -> asignavar .)
+    FLOAT           reduce using rule 7 (estatuto -> asignavar .)
+    CHAR            reduce using rule 7 (estatuto -> asignavar .)
+    DRAW            reduce using rule 7 (estatuto -> asignavar .)
+    MAIN            reduce using rule 7 (estatuto -> asignavar .)
+    RBRACE          reduce using rule 7 (estatuto -> asignavar .)
+    RETURN          reduce using rule 7 (estatuto -> asignavar .)
+
+
+state 11
+
+    (8) estatuto -> asignaarr .
+
+    ID              reduce using rule 8 (estatuto -> asignaarr .)
+    FUNCTION        reduce using rule 8 (estatuto -> asignaarr .)
+    IF              reduce using rule 8 (estatuto -> asignaarr .)
+    WHILE           reduce using rule 8 (estatuto -> asignaarr .)
+    FOR             reduce using rule 8 (estatuto -> asignaarr .)
+    OUT             reduce using rule 8 (estatuto -> asignaarr .)
+    GET             reduce using rule 8 (estatuto -> asignaarr .)
+    INT             reduce using rule 8 (estatuto -> asignaarr .)
+    FLOAT           reduce using rule 8 (estatuto -> asignaarr .)
+    CHAR            reduce using rule 8 (estatuto -> asignaarr .)
+    DRAW            reduce using rule 8 (estatuto -> asignaarr .)
+    MAIN            reduce using rule 8 (estatuto -> asignaarr .)
+    RBRACE          reduce using rule 8 (estatuto -> asignaarr .)
+    RETURN          reduce using rule 8 (estatuto -> asignaarr .)
+
+
+state 12
+
+    (9) estatuto -> vararr .
+
+    ID              reduce using rule 9 (estatuto -> vararr .)
+    FUNCTION        reduce using rule 9 (estatuto -> vararr .)
+    IF              reduce using rule 9 (estatuto -> vararr .)
+    WHILE           reduce using rule 9 (estatuto -> vararr .)
+    FOR             reduce using rule 9 (estatuto -> vararr .)
+    OUT             reduce using rule 9 (estatuto -> vararr .)
+    GET             reduce using rule 9 (estatuto -> vararr .)
+    INT             reduce using rule 9 (estatuto -> vararr .)
+    FLOAT           reduce using rule 9 (estatuto -> vararr .)
+    CHAR            reduce using rule 9 (estatuto -> vararr .)
+    DRAW            reduce using rule 9 (estatuto -> vararr .)
+    MAIN            reduce using rule 9 (estatuto -> vararr .)
+    RBRACE          reduce using rule 9 (estatuto -> vararr .)
+    RETURN          reduce using rule 9 (estatuto -> vararr .)
+
+
+state 13
+
+    (10) estatuto -> var .
+
+    ID              reduce using rule 10 (estatuto -> var .)
+    FUNCTION        reduce using rule 10 (estatuto -> var .)
+    IF              reduce using rule 10 (estatuto -> var .)
+    WHILE           reduce using rule 10 (estatuto -> var .)
+    FOR             reduce using rule 10 (estatuto -> var .)
+    OUT             reduce using rule 10 (estatuto -> var .)
+    GET             reduce using rule 10 (estatuto -> var .)
+    INT             reduce using rule 10 (estatuto -> var .)
+    FLOAT           reduce using rule 10 (estatuto -> var .)
+    CHAR            reduce using rule 10 (estatuto -> var .)
+    DRAW            reduce using rule 10 (estatuto -> var .)
+    MAIN            reduce using rule 10 (estatuto -> var .)
+    RBRACE          reduce using rule 10 (estatuto -> var .)
+    RETURN          reduce using rule 10 (estatuto -> var .)
+
+
+state 14
+
+    (11) estatuto -> func .
+
+    ID              reduce using rule 11 (estatuto -> func .)
+    FUNCTION        reduce using rule 11 (estatuto -> func .)
+    IF              reduce using rule 11 (estatuto -> func .)
+    WHILE           reduce using rule 11 (estatuto -> func .)
+    FOR             reduce using rule 11 (estatuto -> func .)
+    OUT             reduce using rule 11 (estatuto -> func .)
+    GET             reduce using rule 11 (estatuto -> func .)
+    INT             reduce using rule 11 (estatuto -> func .)
+    FLOAT           reduce using rule 11 (estatuto -> func .)
+    CHAR            reduce using rule 11 (estatuto -> func .)
+    DRAW            reduce using rule 11 (estatuto -> func .)
+    MAIN            reduce using rule 11 (estatuto -> func .)
+    RBRACE          reduce using rule 11 (estatuto -> func .)
+    RETURN          reduce using rule 11 (estatuto -> func .)
+
+
+state 15
+
+    (12) estatuto -> ifelse .
+
+    ID              reduce using rule 12 (estatuto -> ifelse .)
+    FUNCTION        reduce using rule 12 (estatuto -> ifelse .)
+    IF              reduce using rule 12 (estatuto -> ifelse .)
+    WHILE           reduce using rule 12 (estatuto -> ifelse .)
+    FOR             reduce using rule 12 (estatuto -> ifelse .)
+    OUT             reduce using rule 12 (estatuto -> ifelse .)
+    GET             reduce using rule 12 (estatuto -> ifelse .)
+    INT             reduce using rule 12 (estatuto -> ifelse .)
+    FLOAT           reduce using rule 12 (estatuto -> ifelse .)
+    CHAR            reduce using rule 12 (estatuto -> ifelse .)
+    DRAW            reduce using rule 12 (estatuto -> ifelse .)
+    MAIN            reduce using rule 12 (estatuto -> ifelse .)
+    RBRACE          reduce using rule 12 (estatuto -> ifelse .)
+    RETURN          reduce using rule 12 (estatuto -> ifelse .)
+
+
+state 16
+
+    (13) estatuto -> while .
+
+    ID              reduce using rule 13 (estatuto -> while .)
+    FUNCTION        reduce using rule 13 (estatuto -> while .)
+    IF              reduce using rule 13 (estatuto -> while .)
+    WHILE           reduce using rule 13 (estatuto -> while .)
+    FOR             reduce using rule 13 (estatuto -> while .)
+    OUT             reduce using rule 13 (estatuto -> while .)
+    GET             reduce using rule 13 (estatuto -> while .)
+    INT             reduce using rule 13 (estatuto -> while .)
+    FLOAT           reduce using rule 13 (estatuto -> while .)
+    CHAR            reduce using rule 13 (estatuto -> while .)
+    DRAW            reduce using rule 13 (estatuto -> while .)
+    MAIN            reduce using rule 13 (estatuto -> while .)
+    RBRACE          reduce using rule 13 (estatuto -> while .)
+    RETURN          reduce using rule 13 (estatuto -> while .)
+
+
+state 17
+
+    (14) estatuto -> forloop .
+
+    ID              reduce using rule 14 (estatuto -> forloop .)
+    FUNCTION        reduce using rule 14 (estatuto -> forloop .)
+    IF              reduce using rule 14 (estatuto -> forloop .)
+    WHILE           reduce using rule 14 (estatuto -> forloop .)
+    FOR             reduce using rule 14 (estatuto -> forloop .)
+    OUT             reduce using rule 14 (estatuto -> forloop .)
+    GET             reduce using rule 14 (estatuto -> forloop .)
+    INT             reduce using rule 14 (estatuto -> forloop .)
+    FLOAT           reduce using rule 14 (estatuto -> forloop .)
+    CHAR            reduce using rule 14 (estatuto -> forloop .)
+    DRAW            reduce using rule 14 (estatuto -> forloop .)
+    MAIN            reduce using rule 14 (estatuto -> forloop .)
+    RBRACE          reduce using rule 14 (estatuto -> forloop .)
+    RETURN          reduce using rule 14 (estatuto -> forloop .)
+
+
+state 18
+
+    (15) estatuto -> write .
+
+    ID              reduce using rule 15 (estatuto -> write .)
+    FUNCTION        reduce using rule 15 (estatuto -> write .)
+    IF              reduce using rule 15 (estatuto -> write .)
+    WHILE           reduce using rule 15 (estatuto -> write .)
+    FOR             reduce using rule 15 (estatuto -> write .)
+    OUT             reduce using rule 15 (estatuto -> write .)
+    GET             reduce using rule 15 (estatuto -> write .)
+    INT             reduce using rule 15 (estatuto -> write .)
+    FLOAT           reduce using rule 15 (estatuto -> write .)
+    CHAR            reduce using rule 15 (estatuto -> write .)
+    DRAW            reduce using rule 15 (estatuto -> write .)
+    MAIN            reduce using rule 15 (estatuto -> write .)
+    RBRACE          reduce using rule 15 (estatuto -> write .)
+    RETURN          reduce using rule 15 (estatuto -> write .)
+
+
+state 19
+
+    (16) estatuto -> read .
+
+    ID              reduce using rule 16 (estatuto -> read .)
+    FUNCTION        reduce using rule 16 (estatuto -> read .)
+    IF              reduce using rule 16 (estatuto -> read .)
+    WHILE           reduce using rule 16 (estatuto -> read .)
+    FOR             reduce using rule 16 (estatuto -> read .)
+    OUT             reduce using rule 16 (estatuto -> read .)
+    GET             reduce using rule 16 (estatuto -> read .)
+    INT             reduce using rule 16 (estatuto -> read .)
+    FLOAT           reduce using rule 16 (estatuto -> read .)
+    CHAR            reduce using rule 16 (estatuto -> read .)
+    DRAW            reduce using rule 16 (estatuto -> read .)
+    MAIN            reduce using rule 16 (estatuto -> read .)
+    RBRACE          reduce using rule 16 (estatuto -> read .)
+    RETURN          reduce using rule 16 (estatuto -> read .)
+
+
+state 20
+
+    (17) estatuto -> fun_esp .
+
+    ID              reduce using rule 17 (estatuto -> fun_esp .)
+    FUNCTION        reduce using rule 17 (estatuto -> fun_esp .)
+    IF              reduce using rule 17 (estatuto -> fun_esp .)
+    WHILE           reduce using rule 17 (estatuto -> fun_esp .)
+    FOR             reduce using rule 17 (estatuto -> fun_esp .)
+    OUT             reduce using rule 17 (estatuto -> fun_esp .)
+    GET             reduce using rule 17 (estatuto -> fun_esp .)
+    INT             reduce using rule 17 (estatuto -> fun_esp .)
+    FLOAT           reduce using rule 17 (estatuto -> fun_esp .)
+    CHAR            reduce using rule 17 (estatuto -> fun_esp .)
+    DRAW            reduce using rule 17 (estatuto -> fun_esp .)
+    MAIN            reduce using rule 17 (estatuto -> fun_esp .)
+    RBRACE          reduce using rule 17 (estatuto -> fun_esp .)
+    RETURN          reduce using rule 17 (estatuto -> fun_esp .)
+
+
+state 21
+
+    (18) estatuto -> cvar .
+
+    ID              reduce using rule 18 (estatuto -> cvar .)
+    FUNCTION        reduce using rule 18 (estatuto -> cvar .)
+    IF              reduce using rule 18 (estatuto -> cvar .)
+    WHILE           reduce using rule 18 (estatuto -> cvar .)
+    FOR             reduce using rule 18 (estatuto -> cvar .)
+    OUT             reduce using rule 18 (estatuto -> cvar .)
+    GET             reduce using rule 18 (estatuto -> cvar .)
+    INT             reduce using rule 18 (estatuto -> cvar .)
+    FLOAT           reduce using rule 18 (estatuto -> cvar .)
+    CHAR            reduce using rule 18 (estatuto -> cvar .)
+    DRAW            reduce using rule 18 (estatuto -> cvar .)
+    MAIN            reduce using rule 18 (estatuto -> cvar .)
+    RBRACE          reduce using rule 18 (estatuto -> cvar .)
+    RETURN          reduce using rule 18 (estatuto -> cvar .)
+
+
+state 22
+
+    (19) estatuto -> cfunc .
+
+    ID              reduce using rule 19 (estatuto -> cfunc .)
+    FUNCTION        reduce using rule 19 (estatuto -> cfunc .)
+    IF              reduce using rule 19 (estatuto -> cfunc .)
+    WHILE           reduce using rule 19 (estatuto -> cfunc .)
+    FOR             reduce using rule 19 (estatuto -> cfunc .)
+    OUT             reduce using rule 19 (estatuto -> cfunc .)
+    GET             reduce using rule 19 (estatuto -> cfunc .)
+    INT             reduce using rule 19 (estatuto -> cfunc .)
+    FLOAT           reduce using rule 19 (estatuto -> cfunc .)
+    CHAR            reduce using rule 19 (estatuto -> cfunc .)
+    DRAW            reduce using rule 19 (estatuto -> cfunc .)
+    MAIN            reduce using rule 19 (estatuto -> cfunc .)
+    RBRACE          reduce using rule 19 (estatuto -> cfunc .)
+    RETURN          reduce using rule 19 (estatuto -> cfunc .)
+
+
+state 23
+
+    (46) vararr -> type . ID LBRACKET lit RBRACKET SEMI
+    (47) vararr -> type . ID LBRACKET expr RBRACKET SEMI
+    (20) var -> type . ID SEMI
+
+    ID              shift and go to state 41
+
+
+state 24
+
+    (77) func -> FUNCTION . type ID eraQuad param body1 fillFunc
+    (78) func -> FUNCTION . VOID ID eraQuad param body2 fillFunc
+    (21) type -> . INT
+    (22) type -> . FLOAT
+    (23) type -> . CHAR
+
+    VOID            shift and go to state 43
+    INT             shift and go to state 31
+    FLOAT           shift and go to state 32
+    CHAR            shift and go to state 33
+
+    type                           shift and go to state 42
+
+state 25
+
+    (37) ifelse -> IF . texp gotoQuadIf THEN bloque_use fill_if
+    (58) texp -> . expr
+    (59) texp -> . expr LT expr
+    (60) texp -> . expr GT expr
+    (61) texp -> . expr LE expr
+    (62) texp -> . expr GE expr
+    (63) texp -> . expr EQ expr
+    (64) texp -> . expr NE expr
+    (65) expr -> . term
+    (66) expr -> . expr PLUS term
+    (67) expr -> . expr MINUS term
+    (68) term -> . fact
+    (69) term -> . term TIMES fact
+    (70) term -> . term DIVIDE fact
+    (71) fact -> . LPAREN aexp RPAREN
+    (72) fact -> . lit
+    (73) fact -> . cvar
+    (74) fact -> . cfunc
+    (26) lit -> . CTEI
+    (27) lit -> . CTEF
+    (44) cvar -> . ID
+    (45) cvar -> . ID LBRACKET expr RBRACKET
+    (75) cfunc -> . ID LPAREN cvar RPAREN SEMI
+    (76) cfunc -> . ID LPAREN RPAREN SEMI
+
+    LPAREN          shift and go to state 48
+    CTEI            shift and go to state 52
+    CTEF            shift and go to state 53
+    ID              shift and go to state 54
+
+    texp                           shift and go to state 44
+    expr                           shift and go to state 45
+    term                           shift and go to state 46
+    fact                           shift and go to state 47
+    lit                            shift and go to state 49
+    cvar                           shift and go to state 50
+    cfunc                          shift and go to state 51
+
+state 26
+
+    (40) while -> WHILE . gotoQuadWhile LPAREN aexp RPAREN gotofQuadWhile DO bloque_use fill_while
+    (41) gotoQuadWhile -> .
+
+    LPAREN          reduce using rule 41 (gotoQuadWhile -> .)
+
+    gotoQuadWhile                  shift and go to state 55
+
+state 27
+
+    (33) forloop -> FOR . asignavar forJump texp forQuad DO bloque_use fill_for
+    (25) asignavar -> . ID EQUALS expr SEMI
+
+    ID              shift and go to state 57
+
+    asignavar                      shift and go to state 56
+
+state 28
+
+    (28) write -> OUT . LPAREN write_aux RPAREN SEMI
+
+    LPAREN          shift and go to state 58
+
+
+state 29
+
+    (49) read -> GET . LPAREN read_aux RPAREN
+
+    LPAREN          shift and go to state 59
+
+
+state 30
+
+    (86) fun_esp -> draw_line .
+
+    ID              reduce using rule 86 (fun_esp -> draw_line .)
+    FUNCTION        reduce using rule 86 (fun_esp -> draw_line .)
+    IF              reduce using rule 86 (fun_esp -> draw_line .)
+    WHILE           reduce using rule 86 (fun_esp -> draw_line .)
+    FOR             reduce using rule 86 (fun_esp -> draw_line .)
+    OUT             reduce using rule 86 (fun_esp -> draw_line .)
+    GET             reduce using rule 86 (fun_esp -> draw_line .)
+    INT             reduce using rule 86 (fun_esp -> draw_line .)
+    FLOAT           reduce using rule 86 (fun_esp -> draw_line .)
+    CHAR            reduce using rule 86 (fun_esp -> draw_line .)
+    DRAW            reduce using rule 86 (fun_esp -> draw_line .)
+    MAIN            reduce using rule 86 (fun_esp -> draw_line .)
+    RBRACE          reduce using rule 86 (fun_esp -> draw_line .)
+    RETURN          reduce using rule 86 (fun_esp -> draw_line .)
+
+
+state 31
+
+    (21) type -> INT .
+
+    ID              reduce using rule 21 (type -> INT .)
+
+
+state 32
+
+    (22) type -> FLOAT .
+
+    ID              reduce using rule 22 (type -> FLOAT .)
+
+
+state 33
+
+    (23) type -> CHAR .
+
+    ID              reduce using rule 23 (type -> CHAR .)
+
+
+state 34
+
+    (88) draw_line -> DRAW . CTEI CTEI CTEI CTEI
+
+    CTEI            shift and go to state 60
+
+
+state 35
+
+    (24) asigna -> ID EQUALS . lit SEMI
+    (25) asignavar -> ID EQUALS . expr SEMI
+    (26) lit -> . CTEI
+    (27) lit -> . CTEF
+    (65) expr -> . term
+    (66) expr -> . expr PLUS term
+    (67) expr -> . expr MINUS term
+    (68) term -> . fact
+    (69) term -> . term TIMES fact
+    (70) term -> . term DIVIDE fact
+    (71) fact -> . LPAREN aexp RPAREN
+    (72) fact -> . lit
+    (73) fact -> . cvar
+    (74) fact -> . cfunc
+    (44) cvar -> . ID
+    (45) cvar -> . ID LBRACKET expr RBRACKET
+    (75) cfunc -> . ID LPAREN cvar RPAREN SEMI
+    (76) cfunc -> . ID LPAREN RPAREN SEMI
+
+    CTEI            shift and go to state 52
+    CTEF            shift and go to state 53
+    LPAREN          shift and go to state 48
+    ID              shift and go to state 54
+
+    lit                            shift and go to state 61
+    expr                           shift and go to state 62
+    term                           shift and go to state 46
+    fact                           shift and go to state 47
+    cvar                           shift and go to state 50
+    cfunc                          shift and go to state 51
+
+state 36
+
+    (48) asignaarr -> ID LBRACKET . expr RBRACKET EQUALS expr SEMI
+    (45) cvar -> ID LBRACKET . expr RBRACKET
+    (65) expr -> . term
+    (66) expr -> . expr PLUS term
+    (67) expr -> . expr MINUS term
+    (68) term -> . fact
+    (69) term -> . term TIMES fact
+    (70) term -> . term DIVIDE fact
+    (71) fact -> . LPAREN aexp RPAREN
+    (72) fact -> . lit
+    (73) fact -> . cvar
+    (74) fact -> . cfunc
+    (26) lit -> . CTEI
+    (27) lit -> . CTEF
+    (44) cvar -> . ID
+    (45) cvar -> . ID LBRACKET expr RBRACKET
+    (75) cfunc -> . ID LPAREN cvar RPAREN SEMI
+    (76) cfunc -> . ID LPAREN RPAREN SEMI
+
+    LPAREN          shift and go to state 48
+    CTEI            shift and go to state 52
+    CTEF            shift and go to state 53
+    ID              shift and go to state 54
+
+    expr                           shift and go to state 63
+    term                           shift and go to state 46
+    fact                           shift and go to state 47
+    lit                            shift and go to state 49
+    cvar                           shift and go to state 50
+    cfunc                          shift and go to state 51
+
+state 37
+
+    (75) cfunc -> ID LPAREN . cvar RPAREN SEMI
+    (76) cfunc -> ID LPAREN . RPAREN SEMI
+    (44) cvar -> . ID
+    (45) cvar -> . ID LBRACKET expr RBRACKET
+
+    RPAREN          shift and go to state 66
+    ID              shift and go to state 64
+
+    cvar                           shift and go to state 65
+
+state 38
+
+    (1) programa -> PROGRAMA ID SEMI bloque main .
+
+    $end            reduce using rule 1 (programa -> PROGRAMA ID SEMI bloque main .)
+
+
+state 39
+
+    (2) main -> MAIN . bloque_use
+    (3) bloque_use -> . LBRACE bloque RBRACE
+
+    LBRACE          shift and go to state 68
+
+    bloque_use                     shift and go to state 67
+
+state 40
+
+    (4) bloque -> estatuto bloque .
+
+    MAIN            reduce using rule 4 (bloque -> estatuto bloque .)
+    RBRACE          reduce using rule 4 (bloque -> estatuto bloque .)
+    RETURN          reduce using rule 4 (bloque -> estatuto bloque .)
+
+
+state 41
+
+    (46) vararr -> type ID . LBRACKET lit RBRACKET SEMI
+    (47) vararr -> type ID . LBRACKET expr RBRACKET SEMI
+    (20) var -> type ID . SEMI
+
+    LBRACKET        shift and go to state 69
+    SEMI            shift and go to state 70
+
+
+state 42
+
+    (77) func -> FUNCTION type . ID eraQuad param body1 fillFunc
+
+    ID              shift and go to state 71
+
+
+state 43
+
+    (78) func -> FUNCTION VOID . ID eraQuad param body2 fillFunc
+
+    ID              shift and go to state 72
+
+
+state 44
+
+    (37) ifelse -> IF texp . gotoQuadIf THEN bloque_use fill_if
+    (38) gotoQuadIf -> .
+
+    THEN            reduce using rule 38 (gotoQuadIf -> .)
+
+    gotoQuadIf                     shift and go to state 73
+
+state 45
+
+    (58) texp -> expr .
+    (59) texp -> expr . LT expr
+    (60) texp -> expr . GT expr
+    (61) texp -> expr . LE expr
+    (62) texp -> expr . GE expr
+    (63) texp -> expr . EQ expr
+    (64) texp -> expr . NE expr
+    (66) expr -> expr . PLUS term
+    (67) expr -> expr . MINUS term
+
+    THEN            reduce using rule 58 (texp -> expr .)
+    AND             reduce using rule 58 (texp -> expr .)
+    OR              reduce using rule 58 (texp -> expr .)
+    RPAREN          reduce using rule 58 (texp -> expr .)
+    DO              reduce using rule 58 (texp -> expr .)
+    LT              shift and go to state 74
+    GT              shift and go to state 75
+    LE              shift and go to state 76
+    GE              shift and go to state 77
+    EQ              shift and go to state 78
+    NE              shift and go to state 79
+    PLUS            shift and go to state 80
+    MINUS           shift and go to state 81
+
+
+state 46
+
+    (65) expr -> term .
+    (69) term -> term . TIMES fact
+    (70) term -> term . DIVIDE fact
+
+    LT              reduce using rule 65 (expr -> term .)
+    GT              reduce using rule 65 (expr -> term .)
+    LE              reduce using rule 65 (expr -> term .)
+    GE              reduce using rule 65 (expr -> term .)
+    EQ              reduce using rule 65 (expr -> term .)
+    NE              reduce using rule 65 (expr -> term .)
+    PLUS            reduce using rule 65 (expr -> term .)
+    MINUS           reduce using rule 65 (expr -> term .)
+    THEN            reduce using rule 65 (expr -> term .)
+    SEMI            reduce using rule 65 (expr -> term .)
+    RBRACKET        reduce using rule 65 (expr -> term .)
+    AND             reduce using rule 65 (expr -> term .)
+    OR              reduce using rule 65 (expr -> term .)
+    RPAREN          reduce using rule 65 (expr -> term .)
+    DO              reduce using rule 65 (expr -> term .)
+    TIMES           shift and go to state 82
+    DIVIDE          shift and go to state 83
+
+
+state 47
+
+    (68) term -> fact .
+
+    TIMES           reduce using rule 68 (term -> fact .)
+    DIVIDE          reduce using rule 68 (term -> fact .)
+    LT              reduce using rule 68 (term -> fact .)
+    GT              reduce using rule 68 (term -> fact .)
+    LE              reduce using rule 68 (term -> fact .)
+    GE              reduce using rule 68 (term -> fact .)
+    EQ              reduce using rule 68 (term -> fact .)
+    NE              reduce using rule 68 (term -> fact .)
+    PLUS            reduce using rule 68 (term -> fact .)
+    MINUS           reduce using rule 68 (term -> fact .)
+    THEN            reduce using rule 68 (term -> fact .)
+    SEMI            reduce using rule 68 (term -> fact .)
+    RBRACKET        reduce using rule 68 (term -> fact .)
+    AND             reduce using rule 68 (term -> fact .)
+    OR              reduce using rule 68 (term -> fact .)
+    RPAREN          reduce using rule 68 (term -> fact .)
+    DO              reduce using rule 68 (term -> fact .)
+
+
+state 48
+
+    (71) fact -> LPAREN . aexp RPAREN
+    (55) aexp -> . texp
+    (56) aexp -> . texp AND texp
+    (57) aexp -> . texp OR texp
+    (58) texp -> . expr
+    (59) texp -> . expr LT expr
+    (60) texp -> . expr GT expr
+    (61) texp -> . expr LE expr
+    (62) texp -> . expr GE expr
+    (63) texp -> . expr EQ expr
+    (64) texp -> . expr NE expr
+    (65) expr -> . term
+    (66) expr -> . expr PLUS term
+    (67) expr -> . expr MINUS term
+    (68) term -> . fact
+    (69) term -> . term TIMES fact
+    (70) term -> . term DIVIDE fact
+    (71) fact -> . LPAREN aexp RPAREN
+    (72) fact -> . lit
+    (73) fact -> . cvar
+    (74) fact -> . cfunc
+    (26) lit -> . CTEI
+    (27) lit -> . CTEF
+    (44) cvar -> . ID
+    (45) cvar -> . ID LBRACKET expr RBRACKET
+    (75) cfunc -> . ID LPAREN cvar RPAREN SEMI
+    (76) cfunc -> . ID LPAREN RPAREN SEMI
+
+    LPAREN          shift and go to state 48
+    CTEI            shift and go to state 52
+    CTEF            shift and go to state 53
+    ID              shift and go to state 54
+
+    aexp                           shift and go to state 84
+    texp                           shift and go to state 85
+    expr                           shift and go to state 45
+    term                           shift and go to state 46
+    fact                           shift and go to state 47
+    lit                            shift and go to state 49
+    cvar                           shift and go to state 50
+    cfunc                          shift and go to state 51
+
+state 49
+
+    (72) fact -> lit .
+
+    TIMES           reduce using rule 72 (fact -> lit .)
+    DIVIDE          reduce using rule 72 (fact -> lit .)
+    LT              reduce using rule 72 (fact -> lit .)
+    GT              reduce using rule 72 (fact -> lit .)
+    LE              reduce using rule 72 (fact -> lit .)
+    GE              reduce using rule 72 (fact -> lit .)
+    EQ              reduce using rule 72 (fact -> lit .)
+    NE              reduce using rule 72 (fact -> lit .)
+    PLUS            reduce using rule 72 (fact -> lit .)
+    MINUS           reduce using rule 72 (fact -> lit .)
+    THEN            reduce using rule 72 (fact -> lit .)
+    RBRACKET        reduce using rule 72 (fact -> lit .)
+    AND             reduce using rule 72 (fact -> lit .)
+    OR              reduce using rule 72 (fact -> lit .)
+    RPAREN          reduce using rule 72 (fact -> lit .)
+    DO              reduce using rule 72 (fact -> lit .)
+    SEMI            reduce using rule 72 (fact -> lit .)
+
+
+state 50
+
+    (73) fact -> cvar .
+
+    TIMES           reduce using rule 73 (fact -> cvar .)
+    DIVIDE          reduce using rule 73 (fact -> cvar .)
+    LT              reduce using rule 73 (fact -> cvar .)
+    GT              reduce using rule 73 (fact -> cvar .)
+    LE              reduce using rule 73 (fact -> cvar .)
+    GE              reduce using rule 73 (fact -> cvar .)
+    EQ              reduce using rule 73 (fact -> cvar .)
+    NE              reduce using rule 73 (fact -> cvar .)
+    PLUS            reduce using rule 73 (fact -> cvar .)
+    MINUS           reduce using rule 73 (fact -> cvar .)
+    THEN            reduce using rule 73 (fact -> cvar .)
+    SEMI            reduce using rule 73 (fact -> cvar .)
+    RBRACKET        reduce using rule 73 (fact -> cvar .)
+    AND             reduce using rule 73 (fact -> cvar .)
+    OR              reduce using rule 73 (fact -> cvar .)
+    RPAREN          reduce using rule 73 (fact -> cvar .)
+    DO              reduce using rule 73 (fact -> cvar .)
+
+
+state 51
+
+    (74) fact -> cfunc .
+
+    TIMES           reduce using rule 74 (fact -> cfunc .)
+    DIVIDE          reduce using rule 74 (fact -> cfunc .)
+    LT              reduce using rule 74 (fact -> cfunc .)
+    GT              reduce using rule 74 (fact -> cfunc .)
+    LE              reduce using rule 74 (fact -> cfunc .)
+    GE              reduce using rule 74 (fact -> cfunc .)
+    EQ              reduce using rule 74 (fact -> cfunc .)
+    NE              reduce using rule 74 (fact -> cfunc .)
+    PLUS            reduce using rule 74 (fact -> cfunc .)
+    MINUS           reduce using rule 74 (fact -> cfunc .)
+    THEN            reduce using rule 74 (fact -> cfunc .)
+    SEMI            reduce using rule 74 (fact -> cfunc .)
+    RBRACKET        reduce using rule 74 (fact -> cfunc .)
+    AND             reduce using rule 74 (fact -> cfunc .)
+    OR              reduce using rule 74 (fact -> cfunc .)
+    RPAREN          reduce using rule 74 (fact -> cfunc .)
+    DO              reduce using rule 74 (fact -> cfunc .)
+
+
+state 52
+
+    (26) lit -> CTEI .
+
+    TIMES           reduce using rule 26 (lit -> CTEI .)
+    DIVIDE          reduce using rule 26 (lit -> CTEI .)
+    LT              reduce using rule 26 (lit -> CTEI .)
+    GT              reduce using rule 26 (lit -> CTEI .)
+    LE              reduce using rule 26 (lit -> CTEI .)
+    GE              reduce using rule 26 (lit -> CTEI .)
+    EQ              reduce using rule 26 (lit -> CTEI .)
+    NE              reduce using rule 26 (lit -> CTEI .)
+    PLUS            reduce using rule 26 (lit -> CTEI .)
+    MINUS           reduce using rule 26 (lit -> CTEI .)
+    THEN            reduce using rule 26 (lit -> CTEI .)
+    SEMI            reduce using rule 26 (lit -> CTEI .)
+    RBRACKET        reduce using rule 26 (lit -> CTEI .)
+    AND             reduce using rule 26 (lit -> CTEI .)
+    OR              reduce using rule 26 (lit -> CTEI .)
+    RPAREN          reduce using rule 26 (lit -> CTEI .)
+    DO              reduce using rule 26 (lit -> CTEI .)
+
+
+state 53
+
+    (27) lit -> CTEF .
+
+    TIMES           reduce using rule 27 (lit -> CTEF .)
+    DIVIDE          reduce using rule 27 (lit -> CTEF .)
+    LT              reduce using rule 27 (lit -> CTEF .)
+    GT              reduce using rule 27 (lit -> CTEF .)
+    LE              reduce using rule 27 (lit -> CTEF .)
+    GE              reduce using rule 27 (lit -> CTEF .)
+    EQ              reduce using rule 27 (lit -> CTEF .)
+    NE              reduce using rule 27 (lit -> CTEF .)
+    PLUS            reduce using rule 27 (lit -> CTEF .)
+    MINUS           reduce using rule 27 (lit -> CTEF .)
+    THEN            reduce using rule 27 (lit -> CTEF .)
+    SEMI            reduce using rule 27 (lit -> CTEF .)
+    RBRACKET        reduce using rule 27 (lit -> CTEF .)
+    AND             reduce using rule 27 (lit -> CTEF .)
+    OR              reduce using rule 27 (lit -> CTEF .)
+    RPAREN          reduce using rule 27 (lit -> CTEF .)
+    DO              reduce using rule 27 (lit -> CTEF .)
+
+
+state 54
+
+    (44) cvar -> ID .
+    (45) cvar -> ID . LBRACKET expr RBRACKET
+    (75) cfunc -> ID . LPAREN cvar RPAREN SEMI
+    (76) cfunc -> ID . LPAREN RPAREN SEMI
+
+    TIMES           reduce using rule 44 (cvar -> ID .)
+    DIVIDE          reduce using rule 44 (cvar -> ID .)
+    LT              reduce using rule 44 (cvar -> ID .)
+    GT              reduce using rule 44 (cvar -> ID .)
+    LE              reduce using rule 44 (cvar -> ID .)
+    GE              reduce using rule 44 (cvar -> ID .)
+    EQ              reduce using rule 44 (cvar -> ID .)
+    NE              reduce using rule 44 (cvar -> ID .)
+    PLUS            reduce using rule 44 (cvar -> ID .)
+    MINUS           reduce using rule 44 (cvar -> ID .)
+    THEN            reduce using rule 44 (cvar -> ID .)
+    SEMI            reduce using rule 44 (cvar -> ID .)
+    RBRACKET        reduce using rule 44 (cvar -> ID .)
+    AND             reduce using rule 44 (cvar -> ID .)
+    OR              reduce using rule 44 (cvar -> ID .)
+    RPAREN          reduce using rule 44 (cvar -> ID .)
+    DO              reduce using rule 44 (cvar -> ID .)
+    LBRACKET        shift and go to state 86
+    LPAREN          shift and go to state 37
+
+
+state 55
+
+    (40) while -> WHILE gotoQuadWhile . LPAREN aexp RPAREN gotofQuadWhile DO bloque_use fill_while
+
+    LPAREN          shift and go to state 87
+
+
+state 56
+
+    (33) forloop -> FOR asignavar . forJump texp forQuad DO bloque_use fill_for
+    (34) forJump -> .
+
+    LPAREN          reduce using rule 34 (forJump -> .)
+    CTEI            reduce using rule 34 (forJump -> .)
+    CTEF            reduce using rule 34 (forJump -> .)
+    ID              reduce using rule 34 (forJump -> .)
+
+    forJump                        shift and go to state 88
+
+state 57
+
+    (25) asignavar -> ID . EQUALS expr SEMI
+
+    EQUALS          shift and go to state 89
+
+
+state 58
+
+    (28) write -> OUT LPAREN . write_aux RPAREN SEMI
+    (29) write_aux -> . write_aux2
+    (30) write_aux -> . write_aux2 COMMA write_aux
+    (31) write_aux2 -> . cvar
+    (32) write_aux2 -> . LETRERO
+    (44) cvar -> . ID
+    (45) cvar -> . ID LBRACKET expr RBRACKET
+
+    LETRERO         shift and go to state 93
+    ID              shift and go to state 64
+
+    write_aux                      shift and go to state 90
+    write_aux2                     shift and go to state 91
+    cvar                           shift and go to state 92
+
+state 59
+
+    (49) read -> GET LPAREN . read_aux RPAREN
+    (50) read_aux -> . ID
+    (51) read_aux -> . ID COMMA read_aux
+
+    ID              shift and go to state 95
+
+    read_aux                       shift and go to state 94
+
+state 60
+
+    (88) draw_line -> DRAW CTEI . CTEI CTEI CTEI
+
+    CTEI            shift and go to state 96
+
+
+state 61
+
+    (24) asigna -> ID EQUALS lit . SEMI
+    (72) fact -> lit .
+
+  ! shift/reduce conflict for SEMI resolved as shift
+    SEMI            shift and go to state 97
+    TIMES           reduce using rule 72 (fact -> lit .)
+    DIVIDE          reduce using rule 72 (fact -> lit .)
+    PLUS            reduce using rule 72 (fact -> lit .)
+    MINUS           reduce using rule 72 (fact -> lit .)
+
+  ! SEMI            [ reduce using rule 72 (fact -> lit .) ]
+
+
+state 62
+
+    (25) asignavar -> ID EQUALS expr . SEMI
+    (66) expr -> expr . PLUS term
+    (67) expr -> expr . MINUS term
+
+    SEMI            shift and go to state 98
+    PLUS            shift and go to state 80
+    MINUS           shift and go to state 81
+
+
+state 63
+
+    (48) asignaarr -> ID LBRACKET expr . RBRACKET EQUALS expr SEMI
+    (45) cvar -> ID LBRACKET expr . RBRACKET
+    (66) expr -> expr . PLUS term
+    (67) expr -> expr . MINUS term
+
+    RBRACKET        shift and go to state 99
+    PLUS            shift and go to state 80
+    MINUS           shift and go to state 81
+
+
+state 64
+
+    (44) cvar -> ID .
+    (45) cvar -> ID . LBRACKET expr RBRACKET
+
+    RPAREN          reduce using rule 44 (cvar -> ID .)
+    COMMA           reduce using rule 44 (cvar -> ID .)
+    LBRACKET        shift and go to state 86
+
+
+state 65
+
+    (75) cfunc -> ID LPAREN cvar . RPAREN SEMI
+
+    RPAREN          shift and go to state 100
+
+
+state 66
+
+    (76) cfunc -> ID LPAREN RPAREN . SEMI
+
+    SEMI            shift and go to state 101
+
+
+state 67
+
+    (2) main -> MAIN bloque_use .
+
+    $end            reduce using rule 2 (main -> MAIN bloque_use .)
+
+
+state 68
+
+    (3) bloque_use -> LBRACE . bloque RBRACE
+    (4) bloque -> . estatuto bloque
+    (5) bloque -> . empty
+    (6) estatuto -> . asigna
+    (7) estatuto -> . asignavar
+    (8) estatuto -> . asignaarr
+    (9) estatuto -> . vararr
+    (10) estatuto -> . var
+    (11) estatuto -> . func
+    (12) estatuto -> . ifelse
+    (13) estatuto -> . while
+    (14) estatuto -> . forloop
+    (15) estatuto -> . write
+    (16) estatuto -> . read
+    (17) estatuto -> . fun_esp
+    (18) estatuto -> . cvar
+    (19) estatuto -> . cfunc
+    (89) empty -> .
+    (24) asigna -> . ID EQUALS lit SEMI
+    (25) asignavar -> . ID EQUALS expr SEMI
+    (48) asignaarr -> . ID LBRACKET expr RBRACKET EQUALS expr SEMI
+    (46) vararr -> . type ID LBRACKET lit RBRACKET SEMI
+    (47) vararr -> . type ID LBRACKET expr RBRACKET SEMI
+    (20) var -> . type ID SEMI
+    (77) func -> . FUNCTION type ID eraQuad param body1 fillFunc
+    (78) func -> . FUNCTION VOID ID eraQuad param body2 fillFunc
+    (37) ifelse -> . IF texp gotoQuadIf THEN bloque_use fill_if
+    (40) while -> . WHILE gotoQuadWhile LPAREN aexp RPAREN gotofQuadWhile DO bloque_use fill_while
+    (33) forloop -> . FOR asignavar forJump texp forQuad DO bloque_use fill_for
+    (28) write -> . OUT LPAREN write_aux RPAREN SEMI
+    (49) read -> . GET LPAREN read_aux RPAREN
+    (86) fun_esp -> . draw_line
+    (44) cvar -> . ID
+    (45) cvar -> . ID LBRACKET expr RBRACKET
+    (75) cfunc -> . ID LPAREN cvar RPAREN SEMI
+    (76) cfunc -> . ID LPAREN RPAREN SEMI
+    (21) type -> . INT
+    (22) type -> . FLOAT
+    (23) type -> . CHAR
+    (88) draw_line -> . DRAW CTEI CTEI CTEI CTEI
+
+    RBRACE          reduce using rule 89 (empty -> .)
+    ID              shift and go to state 5
+    FUNCTION        shift and go to state 24
+    IF              shift and go to state 25
+    WHILE           shift and go to state 26
+    FOR             shift and go to state 27
+    OUT             shift and go to state 28
+    GET             shift and go to state 29
+    INT             shift and go to state 31
+    FLOAT           shift and go to state 32
+    CHAR            shift and go to state 33
+    DRAW            shift and go to state 34
+
+    bloque                         shift and go to state 102
+    estatuto                       shift and go to state 7
+    empty                          shift and go to state 8
+    asigna                         shift and go to state 9
+    asignavar                      shift and go to state 10
+    asignaarr                      shift and go to state 11
+    vararr                         shift and go to state 12
+    var                            shift and go to state 13
+    func                           shift and go to state 14
+    ifelse                         shift and go to state 15
+    while                          shift and go to state 16
+    forloop                        shift and go to state 17
+    write                          shift and go to state 18
+    read                           shift and go to state 19
+    fun_esp                        shift and go to state 20
+    cvar                           shift and go to state 21
+    cfunc                          shift and go to state 22
+    type                           shift and go to state 23
+    draw_line                      shift and go to state 30
+
+state 69
+
+    (46) vararr -> type ID LBRACKET . lit RBRACKET SEMI
+    (47) vararr -> type ID LBRACKET . expr RBRACKET SEMI
+    (26) lit -> . CTEI
+    (27) lit -> . CTEF
+    (65) expr -> . term
+    (66) expr -> . expr PLUS term
+    (67) expr -> . expr MINUS term
+    (68) term -> . fact
+    (69) term -> . term TIMES fact
+    (70) term -> . term DIVIDE fact
+    (71) fact -> . LPAREN aexp RPAREN
+    (72) fact -> . lit
+    (73) fact -> . cvar
+    (74) fact -> . cfunc
+    (44) cvar -> . ID
+    (45) cvar -> . ID LBRACKET expr RBRACKET
+    (75) cfunc -> . ID LPAREN cvar RPAREN SEMI
+    (76) cfunc -> . ID LPAREN RPAREN SEMI
+
+    CTEI            shift and go to state 52
+    CTEF            shift and go to state 53
+    LPAREN          shift and go to state 48
+    ID              shift and go to state 54
+
+    lit                            shift and go to state 103
+    expr                           shift and go to state 104
+    term                           shift and go to state 46
+    fact                           shift and go to state 47
+    cvar                           shift and go to state 50
+    cfunc                          shift and go to state 51
+
+state 70
+
+    (20) var -> type ID SEMI .
+
+    ID              reduce using rule 20 (var -> type ID SEMI .)
+    FUNCTION        reduce using rule 20 (var -> type ID SEMI .)
+    IF              reduce using rule 20 (var -> type ID SEMI .)
+    WHILE           reduce using rule 20 (var -> type ID SEMI .)
+    FOR             reduce using rule 20 (var -> type ID SEMI .)
+    OUT             reduce using rule 20 (var -> type ID SEMI .)
+    GET             reduce using rule 20 (var -> type ID SEMI .)
+    INT             reduce using rule 20 (var -> type ID SEMI .)
+    FLOAT           reduce using rule 20 (var -> type ID SEMI .)
+    CHAR            reduce using rule 20 (var -> type ID SEMI .)
+    DRAW            reduce using rule 20 (var -> type ID SEMI .)
+    MAIN            reduce using rule 20 (var -> type ID SEMI .)
+    RBRACE          reduce using rule 20 (var -> type ID SEMI .)
+    RETURN          reduce using rule 20 (var -> type ID SEMI .)
+
+
+state 71
+
+    (77) func -> FUNCTION type ID . eraQuad param body1 fillFunc
+    (80) eraQuad -> .
+
+    LPAREN          reduce using rule 80 (eraQuad -> .)
+
+    eraQuad                        shift and go to state 105
+
+state 72
+
+    (78) func -> FUNCTION VOID ID . eraQuad param body2 fillFunc
+    (80) eraQuad -> .
+
+    LPAREN          reduce using rule 80 (eraQuad -> .)
+
+    eraQuad                        shift and go to state 106
+
+state 73
+
+    (37) ifelse -> IF texp gotoQuadIf . THEN bloque_use fill_if
+
+    THEN            shift and go to state 107
+
+
+state 74
+
+    (59) texp -> expr LT . expr
+    (65) expr -> . term
+    (66) expr -> . expr PLUS term
+    (67) expr -> . expr MINUS term
+    (68) term -> . fact
+    (69) term -> . term TIMES fact
+    (70) term -> . term DIVIDE fact
+    (71) fact -> . LPAREN aexp RPAREN
+    (72) fact -> . lit
+    (73) fact -> . cvar
+    (74) fact -> . cfunc
+    (26) lit -> . CTEI
+    (27) lit -> . CTEF
+    (44) cvar -> . ID
+    (45) cvar -> . ID LBRACKET expr RBRACKET
+    (75) cfunc -> . ID LPAREN cvar RPAREN SEMI
+    (76) cfunc -> . ID LPAREN RPAREN SEMI
+
+    LPAREN          shift and go to state 48
+    CTEI            shift and go to state 52
+    CTEF            shift and go to state 53
+    ID              shift and go to state 54
+
+    expr                           shift and go to state 108
+    term                           shift and go to state 46
+    fact                           shift and go to state 47
+    lit                            shift and go to state 49
+    cvar                           shift and go to state 50
+    cfunc                          shift and go to state 51
+
+state 75
+
+    (60) texp -> expr GT . expr
+    (65) expr -> . term
+    (66) expr -> . expr PLUS term
+    (67) expr -> . expr MINUS term
+    (68) term -> . fact
+    (69) term -> . term TIMES fact
+    (70) term -> . term DIVIDE fact
+    (71) fact -> . LPAREN aexp RPAREN
+    (72) fact -> . lit
+    (73) fact -> . cvar
+    (74) fact -> . cfunc
+    (26) lit -> . CTEI
+    (27) lit -> . CTEF
+    (44) cvar -> . ID
+    (45) cvar -> . ID LBRACKET expr RBRACKET
+    (75) cfunc -> . ID LPAREN cvar RPAREN SEMI
+    (76) cfunc -> . ID LPAREN RPAREN SEMI
+
+    LPAREN          shift and go to state 48
+    CTEI            shift and go to state 52
+    CTEF            shift and go to state 53
+    ID              shift and go to state 54
+
+    expr                           shift and go to state 109
+    term                           shift and go to state 46
+    fact                           shift and go to state 47
+    lit                            shift and go to state 49
+    cvar                           shift and go to state 50
+    cfunc                          shift and go to state 51
+
+state 76
+
+    (61) texp -> expr LE . expr
+    (65) expr -> . term
+    (66) expr -> . expr PLUS term
+    (67) expr -> . expr MINUS term
+    (68) term -> . fact
+    (69) term -> . term TIMES fact
+    (70) term -> . term DIVIDE fact
+    (71) fact -> . LPAREN aexp RPAREN
+    (72) fact -> . lit
+    (73) fact -> . cvar
+    (74) fact -> . cfunc
+    (26) lit -> . CTEI
+    (27) lit -> . CTEF
+    (44) cvar -> . ID
+    (45) cvar -> . ID LBRACKET expr RBRACKET
+    (75) cfunc -> . ID LPAREN cvar RPAREN SEMI
+    (76) cfunc -> . ID LPAREN RPAREN SEMI
+
+    LPAREN          shift and go to state 48
+    CTEI            shift and go to state 52
+    CTEF            shift and go to state 53
+    ID              shift and go to state 54
+
+    expr                           shift and go to state 110
+    term                           shift and go to state 46
+    fact                           shift and go to state 47
+    lit                            shift and go to state 49
+    cvar                           shift and go to state 50
+    cfunc                          shift and go to state 51
+
+state 77
+
+    (62) texp -> expr GE . expr
+    (65) expr -> . term
+    (66) expr -> . expr PLUS term
+    (67) expr -> . expr MINUS term
+    (68) term -> . fact
+    (69) term -> . term TIMES fact
+    (70) term -> . term DIVIDE fact
+    (71) fact -> . LPAREN aexp RPAREN
+    (72) fact -> . lit
+    (73) fact -> . cvar
+    (74) fact -> . cfunc
+    (26) lit -> . CTEI
+    (27) lit -> . CTEF
+    (44) cvar -> . ID
+    (45) cvar -> . ID LBRACKET expr RBRACKET
+    (75) cfunc -> . ID LPAREN cvar RPAREN SEMI
+    (76) cfunc -> . ID LPAREN RPAREN SEMI
+
+    LPAREN          shift and go to state 48
+    CTEI            shift and go to state 52
+    CTEF            shift and go to state 53
+    ID              shift and go to state 54
+
+    expr                           shift and go to state 111
+    term                           shift and go to state 46
+    fact                           shift and go to state 47
+    lit                            shift and go to state 49
+    cvar                           shift and go to state 50
+    cfunc                          shift and go to state 51
+
+state 78
+
+    (63) texp -> expr EQ . expr
+    (65) expr -> . term
+    (66) expr -> . expr PLUS term
+    (67) expr -> . expr MINUS term
+    (68) term -> . fact
+    (69) term -> . term TIMES fact
+    (70) term -> . term DIVIDE fact
+    (71) fact -> . LPAREN aexp RPAREN
+    (72) fact -> . lit
+    (73) fact -> . cvar
+    (74) fact -> . cfunc
+    (26) lit -> . CTEI
+    (27) lit -> . CTEF
+    (44) cvar -> . ID
+    (45) cvar -> . ID LBRACKET expr RBRACKET
+    (75) cfunc -> . ID LPAREN cvar RPAREN SEMI
+    (76) cfunc -> . ID LPAREN RPAREN SEMI
+
+    LPAREN          shift and go to state 48
+    CTEI            shift and go to state 52
+    CTEF            shift and go to state 53
+    ID              shift and go to state 54
+
+    expr                           shift and go to state 112
+    term                           shift and go to state 46
+    fact                           shift and go to state 47
+    lit                            shift and go to state 49
+    cvar                           shift and go to state 50
+    cfunc                          shift and go to state 51
+
+state 79
+
+    (64) texp -> expr NE . expr
+    (65) expr -> . term
+    (66) expr -> . expr PLUS term
+    (67) expr -> . expr MINUS term
+    (68) term -> . fact
+    (69) term -> . term TIMES fact
+    (70) term -> . term DIVIDE fact
+    (71) fact -> . LPAREN aexp RPAREN
+    (72) fact -> . lit
+    (73) fact -> . cvar
+    (74) fact -> . cfunc
+    (26) lit -> . CTEI
+    (27) lit -> . CTEF
+    (44) cvar -> . ID
+    (45) cvar -> . ID LBRACKET expr RBRACKET
+    (75) cfunc -> . ID LPAREN cvar RPAREN SEMI
+    (76) cfunc -> . ID LPAREN RPAREN SEMI
+
+    LPAREN          shift and go to state 48
+    CTEI            shift and go to state 52
+    CTEF            shift and go to state 53
+    ID              shift and go to state 54
+
+    expr                           shift and go to state 113
+    term                           shift and go to state 46
+    fact                           shift and go to state 47
+    lit                            shift and go to state 49
+    cvar                           shift and go to state 50
+    cfunc                          shift and go to state 51
+
+state 80
+
+    (66) expr -> expr PLUS . term
+    (68) term -> . fact
+    (69) term -> . term TIMES fact
+    (70) term -> . term DIVIDE fact
+    (71) fact -> . LPAREN aexp RPAREN
+    (72) fact -> . lit
+    (73) fact -> . cvar
+    (74) fact -> . cfunc
+    (26) lit -> . CTEI
+    (27) lit -> . CTEF
+    (44) cvar -> . ID
+    (45) cvar -> . ID LBRACKET expr RBRACKET
+    (75) cfunc -> . ID LPAREN cvar RPAREN SEMI
+    (76) cfunc -> . ID LPAREN RPAREN SEMI
+
+    LPAREN          shift and go to state 48
+    CTEI            shift and go to state 52
+    CTEF            shift and go to state 53
+    ID              shift and go to state 54
+
+    term                           shift and go to state 114
+    fact                           shift and go to state 47
+    lit                            shift and go to state 49
+    cvar                           shift and go to state 50
+    cfunc                          shift and go to state 51
+
+state 81
+
+    (67) expr -> expr MINUS . term
+    (68) term -> . fact
+    (69) term -> . term TIMES fact
+    (70) term -> . term DIVIDE fact
+    (71) fact -> . LPAREN aexp RPAREN
+    (72) fact -> . lit
+    (73) fact -> . cvar
+    (74) fact -> . cfunc
+    (26) lit -> . CTEI
+    (27) lit -> . CTEF
+    (44) cvar -> . ID
+    (45) cvar -> . ID LBRACKET expr RBRACKET
+    (75) cfunc -> . ID LPAREN cvar RPAREN SEMI
+    (76) cfunc -> . ID LPAREN RPAREN SEMI
+
+    LPAREN          shift and go to state 48
+    CTEI            shift and go to state 52
+    CTEF            shift and go to state 53
+    ID              shift and go to state 54
+
+    term                           shift and go to state 115
+    fact                           shift and go to state 47
+    lit                            shift and go to state 49
+    cvar                           shift and go to state 50
+    cfunc                          shift and go to state 51
+
+state 82
+
+    (69) term -> term TIMES . fact
+    (71) fact -> . LPAREN aexp RPAREN
+    (72) fact -> . lit
+    (73) fact -> . cvar
+    (74) fact -> . cfunc
+    (26) lit -> . CTEI
+    (27) lit -> . CTEF
+    (44) cvar -> . ID
+    (45) cvar -> . ID LBRACKET expr RBRACKET
+    (75) cfunc -> . ID LPAREN cvar RPAREN SEMI
+    (76) cfunc -> . ID LPAREN RPAREN SEMI
+
+    LPAREN          shift and go to state 48
+    CTEI            shift and go to state 52
+    CTEF            shift and go to state 53
+    ID              shift and go to state 54
+
+    fact                           shift and go to state 116
+    lit                            shift and go to state 49
+    cvar                           shift and go to state 50
+    cfunc                          shift and go to state 51
+
+state 83
+
+    (70) term -> term DIVIDE . fact
+    (71) fact -> . LPAREN aexp RPAREN
+    (72) fact -> . lit
+    (73) fact -> . cvar
+    (74) fact -> . cfunc
+    (26) lit -> . CTEI
+    (27) lit -> . CTEF
+    (44) cvar -> . ID
+    (45) cvar -> . ID LBRACKET expr RBRACKET
+    (75) cfunc -> . ID LPAREN cvar RPAREN SEMI
+    (76) cfunc -> . ID LPAREN RPAREN SEMI
+
+    LPAREN          shift and go to state 48
+    CTEI            shift and go to state 52
+    CTEF            shift and go to state 53
+    ID              shift and go to state 54
+
+    fact                           shift and go to state 117
+    lit                            shift and go to state 49
+    cvar                           shift and go to state 50
+    cfunc                          shift and go to state 51
+
+state 84
+
+    (71) fact -> LPAREN aexp . RPAREN
+
+    RPAREN          shift and go to state 118
+
+
+state 85
+
+    (55) aexp -> texp .
+    (56) aexp -> texp . AND texp
+    (57) aexp -> texp . OR texp
+
+    RPAREN          reduce using rule 55 (aexp -> texp .)
+    AND             shift and go to state 119
+    OR              shift and go to state 120
+
+
+state 86
+
+    (45) cvar -> ID LBRACKET . expr RBRACKET
+    (65) expr -> . term
+    (66) expr -> . expr PLUS term
+    (67) expr -> . expr MINUS term
+    (68) term -> . fact
+    (69) term -> . term TIMES fact
+    (70) term -> . term DIVIDE fact
+    (71) fact -> . LPAREN aexp RPAREN
+    (72) fact -> . lit
+    (73) fact -> . cvar
+    (74) fact -> . cfunc
+    (26) lit -> . CTEI
+    (27) lit -> . CTEF
+    (44) cvar -> . ID
+    (45) cvar -> . ID LBRACKET expr RBRACKET
+    (75) cfunc -> . ID LPAREN cvar RPAREN SEMI
+    (76) cfunc -> . ID LPAREN RPAREN SEMI
+
+    LPAREN          shift and go to state 48
+    CTEI            shift and go to state 52
+    CTEF            shift and go to state 53
+    ID              shift and go to state 54
+
+    expr                           shift and go to state 121
+    term                           shift and go to state 46
+    fact                           shift and go to state 47
+    lit                            shift and go to state 49
+    cvar                           shift and go to state 50
+    cfunc                          shift and go to state 51
+
+state 87
+
+    (40) while -> WHILE gotoQuadWhile LPAREN . aexp RPAREN gotofQuadWhile DO bloque_use fill_while
+    (55) aexp -> . texp
+    (56) aexp -> . texp AND texp
+    (57) aexp -> . texp OR texp
+    (58) texp -> . expr
+    (59) texp -> . expr LT expr
+    (60) texp -> . expr GT expr
+    (61) texp -> . expr LE expr
+    (62) texp -> . expr GE expr
+    (63) texp -> . expr EQ expr
+    (64) texp -> . expr NE expr
+    (65) expr -> . term
+    (66) expr -> . expr PLUS term
+    (67) expr -> . expr MINUS term
+    (68) term -> . fact
+    (69) term -> . term TIMES fact
+    (70) term -> . term DIVIDE fact
+    (71) fact -> . LPAREN aexp RPAREN
+    (72) fact -> . lit
+    (73) fact -> . cvar
+    (74) fact -> . cfunc
+    (26) lit -> . CTEI
+    (27) lit -> . CTEF
+    (44) cvar -> . ID
+    (45) cvar -> . ID LBRACKET expr RBRACKET
+    (75) cfunc -> . ID LPAREN cvar RPAREN SEMI
+    (76) cfunc -> . ID LPAREN RPAREN SEMI
+
+    LPAREN          shift and go to state 48
+    CTEI            shift and go to state 52
+    CTEF            shift and go to state 53
+    ID              shift and go to state 54
+
+    aexp                           shift and go to state 122
+    texp                           shift and go to state 85
+    expr                           shift and go to state 45
+    term                           shift and go to state 46
+    fact                           shift and go to state 47
+    lit                            shift and go to state 49
+    cvar                           shift and go to state 50
+    cfunc                          shift and go to state 51
+
+state 88
+
+    (33) forloop -> FOR asignavar forJump . texp forQuad DO bloque_use fill_for
+    (58) texp -> . expr
+    (59) texp -> . expr LT expr
+    (60) texp -> . expr GT expr
+    (61) texp -> . expr LE expr
+    (62) texp -> . expr GE expr
+    (63) texp -> . expr EQ expr
+    (64) texp -> . expr NE expr
+    (65) expr -> . term
+    (66) expr -> . expr PLUS term
+    (67) expr -> . expr MINUS term
+    (68) term -> . fact
+    (69) term -> . term TIMES fact
+    (70) term -> . term DIVIDE fact
+    (71) fact -> . LPAREN aexp RPAREN
+    (72) fact -> . lit
+    (73) fact -> . cvar
+    (74) fact -> . cfunc
+    (26) lit -> . CTEI
+    (27) lit -> . CTEF
+    (44) cvar -> . ID
+    (45) cvar -> . ID LBRACKET expr RBRACKET
+    (75) cfunc -> . ID LPAREN cvar RPAREN SEMI
+    (76) cfunc -> . ID LPAREN RPAREN SEMI
+
+    LPAREN          shift and go to state 48
+    CTEI            shift and go to state 52
+    CTEF            shift and go to state 53
+    ID              shift and go to state 54
+
+    texp                           shift and go to state 123
+    expr                           shift and go to state 45
+    term                           shift and go to state 46
+    fact                           shift and go to state 47
+    lit                            shift and go to state 49
+    cvar                           shift and go to state 50
+    cfunc                          shift and go to state 51
+
+state 89
+
+    (25) asignavar -> ID EQUALS . expr SEMI
+    (65) expr -> . term
+    (66) expr -> . expr PLUS term
+    (67) expr -> . expr MINUS term
+    (68) term -> . fact
+    (69) term -> . term TIMES fact
+    (70) term -> . term DIVIDE fact
+    (71) fact -> . LPAREN aexp RPAREN
+    (72) fact -> . lit
+    (73) fact -> . cvar
+    (74) fact -> . cfunc
+    (26) lit -> . CTEI
+    (27) lit -> . CTEF
+    (44) cvar -> . ID
+    (45) cvar -> . ID LBRACKET expr RBRACKET
+    (75) cfunc -> . ID LPAREN cvar RPAREN SEMI
+    (76) cfunc -> . ID LPAREN RPAREN SEMI
+
+    LPAREN          shift and go to state 48
+    CTEI            shift and go to state 52
+    CTEF            shift and go to state 53
+    ID              shift and go to state 54
+
+    expr                           shift and go to state 62
+    term                           shift and go to state 46
+    fact                           shift and go to state 47
+    lit                            shift and go to state 49
+    cvar                           shift and go to state 50
+    cfunc                          shift and go to state 51
+
+state 90
+
+    (28) write -> OUT LPAREN write_aux . RPAREN SEMI
+
+    RPAREN          shift and go to state 124
+
+
+state 91
+
+    (29) write_aux -> write_aux2 .
+    (30) write_aux -> write_aux2 . COMMA write_aux
+
+    RPAREN          reduce using rule 29 (write_aux -> write_aux2 .)
+    COMMA           shift and go to state 125
+
+
+state 92
+
+    (31) write_aux2 -> cvar .
+
+    COMMA           reduce using rule 31 (write_aux2 -> cvar .)
+    RPAREN          reduce using rule 31 (write_aux2 -> cvar .)
+
+
+state 93
+
+    (32) write_aux2 -> LETRERO .
+
+    COMMA           reduce using rule 32 (write_aux2 -> LETRERO .)
+    RPAREN          reduce using rule 32 (write_aux2 -> LETRERO .)
+
+
+state 94
+
+    (49) read -> GET LPAREN read_aux . RPAREN
+
+    RPAREN          shift and go to state 126
+
+
+state 95
+
+    (50) read_aux -> ID .
+    (51) read_aux -> ID . COMMA read_aux
+
+    RPAREN          reduce using rule 50 (read_aux -> ID .)
+    COMMA           shift and go to state 127
+
+
+state 96
+
+    (88) draw_line -> DRAW CTEI CTEI . CTEI CTEI
+
+    CTEI            shift and go to state 128
+
+
+state 97
+
+    (24) asigna -> ID EQUALS lit SEMI .
+
+    ID              reduce using rule 24 (asigna -> ID EQUALS lit SEMI .)
+    FUNCTION        reduce using rule 24 (asigna -> ID EQUALS lit SEMI .)
+    IF              reduce using rule 24 (asigna -> ID EQUALS lit SEMI .)
+    WHILE           reduce using rule 24 (asigna -> ID EQUALS lit SEMI .)
+    FOR             reduce using rule 24 (asigna -> ID EQUALS lit SEMI .)
+    OUT             reduce using rule 24 (asigna -> ID EQUALS lit SEMI .)
+    GET             reduce using rule 24 (asigna -> ID EQUALS lit SEMI .)
+    INT             reduce using rule 24 (asigna -> ID EQUALS lit SEMI .)
+    FLOAT           reduce using rule 24 (asigna -> ID EQUALS lit SEMI .)
+    CHAR            reduce using rule 24 (asigna -> ID EQUALS lit SEMI .)
+    DRAW            reduce using rule 24 (asigna -> ID EQUALS lit SEMI .)
+    MAIN            reduce using rule 24 (asigna -> ID EQUALS lit SEMI .)
+    RBRACE          reduce using rule 24 (asigna -> ID EQUALS lit SEMI .)
+    RETURN          reduce using rule 24 (asigna -> ID EQUALS lit SEMI .)
+
+
+state 98
+
+    (25) asignavar -> ID EQUALS expr SEMI .
+
+    ID              reduce using rule 25 (asignavar -> ID EQUALS expr SEMI .)
+    FUNCTION        reduce using rule 25 (asignavar -> ID EQUALS expr SEMI .)
+    IF              reduce using rule 25 (asignavar -> ID EQUALS expr SEMI .)
+    WHILE           reduce using rule 25 (asignavar -> ID EQUALS expr SEMI .)
+    FOR             reduce using rule 25 (asignavar -> ID EQUALS expr SEMI .)
+    OUT             reduce using rule 25 (asignavar -> ID EQUALS expr SEMI .)
+    GET             reduce using rule 25 (asignavar -> ID EQUALS expr SEMI .)
+    INT             reduce using rule 25 (asignavar -> ID EQUALS expr SEMI .)
+    FLOAT           reduce using rule 25 (asignavar -> ID EQUALS expr SEMI .)
+    CHAR            reduce using rule 25 (asignavar -> ID EQUALS expr SEMI .)
+    DRAW            reduce using rule 25 (asignavar -> ID EQUALS expr SEMI .)
+    MAIN            reduce using rule 25 (asignavar -> ID EQUALS expr SEMI .)
+    RBRACE          reduce using rule 25 (asignavar -> ID EQUALS expr SEMI .)
+    RETURN          reduce using rule 25 (asignavar -> ID EQUALS expr SEMI .)
+    LPAREN          reduce using rule 25 (asignavar -> ID EQUALS expr SEMI .)
+    CTEI            reduce using rule 25 (asignavar -> ID EQUALS expr SEMI .)
+    CTEF            reduce using rule 25 (asignavar -> ID EQUALS expr SEMI .)
+
+
+state 99
+
+    (48) asignaarr -> ID LBRACKET expr RBRACKET . EQUALS expr SEMI
+    (45) cvar -> ID LBRACKET expr RBRACKET .
+
+    EQUALS          shift and go to state 129
+    ID              reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+    FUNCTION        reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+    IF              reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+    WHILE           reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+    FOR             reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+    OUT             reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+    GET             reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+    INT             reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+    FLOAT           reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+    CHAR            reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+    DRAW            reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+    MAIN            reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+    RBRACE          reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+    RETURN          reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+
+
+state 100
+
+    (75) cfunc -> ID LPAREN cvar RPAREN . SEMI
+
+    SEMI            shift and go to state 130
+
+
+state 101
+
+    (76) cfunc -> ID LPAREN RPAREN SEMI .
+
+    ID              reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+    FUNCTION        reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+    IF              reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+    WHILE           reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+    FOR             reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+    OUT             reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+    GET             reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+    INT             reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+    FLOAT           reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+    CHAR            reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+    DRAW            reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+    MAIN            reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+    RBRACE          reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+    RETURN          reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+    TIMES           reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+    DIVIDE          reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+    LT              reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+    GT              reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+    LE              reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+    GE              reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+    EQ              reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+    NE              reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+    PLUS            reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+    MINUS           reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+    THEN            reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+    SEMI            reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+    RBRACKET        reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+    AND             reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+    OR              reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+    RPAREN          reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+    DO              reduce using rule 76 (cfunc -> ID LPAREN RPAREN SEMI .)
+
+
+state 102
+
+    (3) bloque_use -> LBRACE bloque . RBRACE
+
+    RBRACE          shift and go to state 131
+
+
+state 103
+
+    (46) vararr -> type ID LBRACKET lit . RBRACKET SEMI
+    (72) fact -> lit .
+
+  ! shift/reduce conflict for RBRACKET resolved as shift
+    RBRACKET        shift and go to state 132
+    TIMES           reduce using rule 72 (fact -> lit .)
+    DIVIDE          reduce using rule 72 (fact -> lit .)
+    PLUS            reduce using rule 72 (fact -> lit .)
+    MINUS           reduce using rule 72 (fact -> lit .)
+
+  ! RBRACKET        [ reduce using rule 72 (fact -> lit .) ]
+
+
+state 104
+
+    (47) vararr -> type ID LBRACKET expr . RBRACKET SEMI
+    (66) expr -> expr . PLUS term
+    (67) expr -> expr . MINUS term
+
+    RBRACKET        shift and go to state 133
+    PLUS            shift and go to state 80
+    MINUS           shift and go to state 81
+
+
+state 105
+
+    (77) func -> FUNCTION type ID eraQuad . param body1 fillFunc
+    (82) param -> . LPAREN RPAREN
+    (83) param -> . LPAREN param_aux RPAREN
+
+    LPAREN          shift and go to state 135
+
+    param                          shift and go to state 134
+
+state 106
+
+    (78) func -> FUNCTION VOID ID eraQuad . param body2 fillFunc
+    (82) param -> . LPAREN RPAREN
+    (83) param -> . LPAREN param_aux RPAREN
+
+    LPAREN          shift and go to state 135
+
+    param                          shift and go to state 136
+
+state 107
+
+    (37) ifelse -> IF texp gotoQuadIf THEN . bloque_use fill_if
+    (3) bloque_use -> . LBRACE bloque RBRACE
+
+    LBRACE          shift and go to state 68
+
+    bloque_use                     shift and go to state 137
+
+state 108
+
+    (59) texp -> expr LT expr .
+    (66) expr -> expr . PLUS term
+    (67) expr -> expr . MINUS term
+
+    THEN            reduce using rule 59 (texp -> expr LT expr .)
+    AND             reduce using rule 59 (texp -> expr LT expr .)
+    OR              reduce using rule 59 (texp -> expr LT expr .)
+    RPAREN          reduce using rule 59 (texp -> expr LT expr .)
+    DO              reduce using rule 59 (texp -> expr LT expr .)
+    PLUS            shift and go to state 80
+    MINUS           shift and go to state 81
+
+
+state 109
+
+    (60) texp -> expr GT expr .
+    (66) expr -> expr . PLUS term
+    (67) expr -> expr . MINUS term
+
+    THEN            reduce using rule 60 (texp -> expr GT expr .)
+    AND             reduce using rule 60 (texp -> expr GT expr .)
+    OR              reduce using rule 60 (texp -> expr GT expr .)
+    RPAREN          reduce using rule 60 (texp -> expr GT expr .)
+    DO              reduce using rule 60 (texp -> expr GT expr .)
+    PLUS            shift and go to state 80
+    MINUS           shift and go to state 81
+
+
+state 110
+
+    (61) texp -> expr LE expr .
+    (66) expr -> expr . PLUS term
+    (67) expr -> expr . MINUS term
+
+    THEN            reduce using rule 61 (texp -> expr LE expr .)
+    AND             reduce using rule 61 (texp -> expr LE expr .)
+    OR              reduce using rule 61 (texp -> expr LE expr .)
+    RPAREN          reduce using rule 61 (texp -> expr LE expr .)
+    DO              reduce using rule 61 (texp -> expr LE expr .)
+    PLUS            shift and go to state 80
+    MINUS           shift and go to state 81
+
+
+state 111
+
+    (62) texp -> expr GE expr .
+    (66) expr -> expr . PLUS term
+    (67) expr -> expr . MINUS term
+
+    THEN            reduce using rule 62 (texp -> expr GE expr .)
+    AND             reduce using rule 62 (texp -> expr GE expr .)
+    OR              reduce using rule 62 (texp -> expr GE expr .)
+    RPAREN          reduce using rule 62 (texp -> expr GE expr .)
+    DO              reduce using rule 62 (texp -> expr GE expr .)
+    PLUS            shift and go to state 80
+    MINUS           shift and go to state 81
+
+
+state 112
+
+    (63) texp -> expr EQ expr .
+    (66) expr -> expr . PLUS term
+    (67) expr -> expr . MINUS term
+
+    THEN            reduce using rule 63 (texp -> expr EQ expr .)
+    AND             reduce using rule 63 (texp -> expr EQ expr .)
+    OR              reduce using rule 63 (texp -> expr EQ expr .)
+    RPAREN          reduce using rule 63 (texp -> expr EQ expr .)
+    DO              reduce using rule 63 (texp -> expr EQ expr .)
+    PLUS            shift and go to state 80
+    MINUS           shift and go to state 81
+
+
+state 113
+
+    (64) texp -> expr NE expr .
+    (66) expr -> expr . PLUS term
+    (67) expr -> expr . MINUS term
+
+    THEN            reduce using rule 64 (texp -> expr NE expr .)
+    AND             reduce using rule 64 (texp -> expr NE expr .)
+    OR              reduce using rule 64 (texp -> expr NE expr .)
+    RPAREN          reduce using rule 64 (texp -> expr NE expr .)
+    DO              reduce using rule 64 (texp -> expr NE expr .)
+    PLUS            shift and go to state 80
+    MINUS           shift and go to state 81
+
+
+state 114
+
+    (66) expr -> expr PLUS term .
+    (69) term -> term . TIMES fact
+    (70) term -> term . DIVIDE fact
+
+    LT              reduce using rule 66 (expr -> expr PLUS term .)
+    GT              reduce using rule 66 (expr -> expr PLUS term .)
+    LE              reduce using rule 66 (expr -> expr PLUS term .)
+    GE              reduce using rule 66 (expr -> expr PLUS term .)
+    EQ              reduce using rule 66 (expr -> expr PLUS term .)
+    NE              reduce using rule 66 (expr -> expr PLUS term .)
+    PLUS            reduce using rule 66 (expr -> expr PLUS term .)
+    MINUS           reduce using rule 66 (expr -> expr PLUS term .)
+    THEN            reduce using rule 66 (expr -> expr PLUS term .)
+    SEMI            reduce using rule 66 (expr -> expr PLUS term .)
+    RBRACKET        reduce using rule 66 (expr -> expr PLUS term .)
+    AND             reduce using rule 66 (expr -> expr PLUS term .)
+    OR              reduce using rule 66 (expr -> expr PLUS term .)
+    RPAREN          reduce using rule 66 (expr -> expr PLUS term .)
+    DO              reduce using rule 66 (expr -> expr PLUS term .)
+    TIMES           shift and go to state 82
+    DIVIDE          shift and go to state 83
+
+
+state 115
+
+    (67) expr -> expr MINUS term .
+    (69) term -> term . TIMES fact
+    (70) term -> term . DIVIDE fact
+
+    LT              reduce using rule 67 (expr -> expr MINUS term .)
+    GT              reduce using rule 67 (expr -> expr MINUS term .)
+    LE              reduce using rule 67 (expr -> expr MINUS term .)
+    GE              reduce using rule 67 (expr -> expr MINUS term .)
+    EQ              reduce using rule 67 (expr -> expr MINUS term .)
+    NE              reduce using rule 67 (expr -> expr MINUS term .)
+    PLUS            reduce using rule 67 (expr -> expr MINUS term .)
+    MINUS           reduce using rule 67 (expr -> expr MINUS term .)
+    THEN            reduce using rule 67 (expr -> expr MINUS term .)
+    SEMI            reduce using rule 67 (expr -> expr MINUS term .)
+    RBRACKET        reduce using rule 67 (expr -> expr MINUS term .)
+    AND             reduce using rule 67 (expr -> expr MINUS term .)
+    OR              reduce using rule 67 (expr -> expr MINUS term .)
+    RPAREN          reduce using rule 67 (expr -> expr MINUS term .)
+    DO              reduce using rule 67 (expr -> expr MINUS term .)
+    TIMES           shift and go to state 82
+    DIVIDE          shift and go to state 83
+
+
+state 116
+
+    (69) term -> term TIMES fact .
+
+    TIMES           reduce using rule 69 (term -> term TIMES fact .)
+    DIVIDE          reduce using rule 69 (term -> term TIMES fact .)
+    LT              reduce using rule 69 (term -> term TIMES fact .)
+    GT              reduce using rule 69 (term -> term TIMES fact .)
+    LE              reduce using rule 69 (term -> term TIMES fact .)
+    GE              reduce using rule 69 (term -> term TIMES fact .)
+    EQ              reduce using rule 69 (term -> term TIMES fact .)
+    NE              reduce using rule 69 (term -> term TIMES fact .)
+    PLUS            reduce using rule 69 (term -> term TIMES fact .)
+    MINUS           reduce using rule 69 (term -> term TIMES fact .)
+    THEN            reduce using rule 69 (term -> term TIMES fact .)
+    SEMI            reduce using rule 69 (term -> term TIMES fact .)
+    RBRACKET        reduce using rule 69 (term -> term TIMES fact .)
+    AND             reduce using rule 69 (term -> term TIMES fact .)
+    OR              reduce using rule 69 (term -> term TIMES fact .)
+    RPAREN          reduce using rule 69 (term -> term TIMES fact .)
+    DO              reduce using rule 69 (term -> term TIMES fact .)
+
+
+state 117
+
+    (70) term -> term DIVIDE fact .
+
+    TIMES           reduce using rule 70 (term -> term DIVIDE fact .)
+    DIVIDE          reduce using rule 70 (term -> term DIVIDE fact .)
+    LT              reduce using rule 70 (term -> term DIVIDE fact .)
+    GT              reduce using rule 70 (term -> term DIVIDE fact .)
+    LE              reduce using rule 70 (term -> term DIVIDE fact .)
+    GE              reduce using rule 70 (term -> term DIVIDE fact .)
+    EQ              reduce using rule 70 (term -> term DIVIDE fact .)
+    NE              reduce using rule 70 (term -> term DIVIDE fact .)
+    PLUS            reduce using rule 70 (term -> term DIVIDE fact .)
+    MINUS           reduce using rule 70 (term -> term DIVIDE fact .)
+    THEN            reduce using rule 70 (term -> term DIVIDE fact .)
+    SEMI            reduce using rule 70 (term -> term DIVIDE fact .)
+    RBRACKET        reduce using rule 70 (term -> term DIVIDE fact .)
+    AND             reduce using rule 70 (term -> term DIVIDE fact .)
+    OR              reduce using rule 70 (term -> term DIVIDE fact .)
+    RPAREN          reduce using rule 70 (term -> term DIVIDE fact .)
+    DO              reduce using rule 70 (term -> term DIVIDE fact .)
+
+
+state 118
+
+    (71) fact -> LPAREN aexp RPAREN .
+
+    TIMES           reduce using rule 71 (fact -> LPAREN aexp RPAREN .)
+    DIVIDE          reduce using rule 71 (fact -> LPAREN aexp RPAREN .)
+    LT              reduce using rule 71 (fact -> LPAREN aexp RPAREN .)
+    GT              reduce using rule 71 (fact -> LPAREN aexp RPAREN .)
+    LE              reduce using rule 71 (fact -> LPAREN aexp RPAREN .)
+    GE              reduce using rule 71 (fact -> LPAREN aexp RPAREN .)
+    EQ              reduce using rule 71 (fact -> LPAREN aexp RPAREN .)
+    NE              reduce using rule 71 (fact -> LPAREN aexp RPAREN .)
+    PLUS            reduce using rule 71 (fact -> LPAREN aexp RPAREN .)
+    MINUS           reduce using rule 71 (fact -> LPAREN aexp RPAREN .)
+    THEN            reduce using rule 71 (fact -> LPAREN aexp RPAREN .)
+    SEMI            reduce using rule 71 (fact -> LPAREN aexp RPAREN .)
+    RBRACKET        reduce using rule 71 (fact -> LPAREN aexp RPAREN .)
+    AND             reduce using rule 71 (fact -> LPAREN aexp RPAREN .)
+    OR              reduce using rule 71 (fact -> LPAREN aexp RPAREN .)
+    RPAREN          reduce using rule 71 (fact -> LPAREN aexp RPAREN .)
+    DO              reduce using rule 71 (fact -> LPAREN aexp RPAREN .)
+
+
+state 119
+
+    (56) aexp -> texp AND . texp
+    (58) texp -> . expr
+    (59) texp -> . expr LT expr
+    (60) texp -> . expr GT expr
+    (61) texp -> . expr LE expr
+    (62) texp -> . expr GE expr
+    (63) texp -> . expr EQ expr
+    (64) texp -> . expr NE expr
+    (65) expr -> . term
+    (66) expr -> . expr PLUS term
+    (67) expr -> . expr MINUS term
+    (68) term -> . fact
+    (69) term -> . term TIMES fact
+    (70) term -> . term DIVIDE fact
+    (71) fact -> . LPAREN aexp RPAREN
+    (72) fact -> . lit
+    (73) fact -> . cvar
+    (74) fact -> . cfunc
+    (26) lit -> . CTEI
+    (27) lit -> . CTEF
+    (44) cvar -> . ID
+    (45) cvar -> . ID LBRACKET expr RBRACKET
+    (75) cfunc -> . ID LPAREN cvar RPAREN SEMI
+    (76) cfunc -> . ID LPAREN RPAREN SEMI
+
+    LPAREN          shift and go to state 48
+    CTEI            shift and go to state 52
+    CTEF            shift and go to state 53
+    ID              shift and go to state 54
+
+    texp                           shift and go to state 138
+    expr                           shift and go to state 45
+    term                           shift and go to state 46
+    fact                           shift and go to state 47
+    lit                            shift and go to state 49
+    cvar                           shift and go to state 50
+    cfunc                          shift and go to state 51
+
+state 120
+
+    (57) aexp -> texp OR . texp
+    (58) texp -> . expr
+    (59) texp -> . expr LT expr
+    (60) texp -> . expr GT expr
+    (61) texp -> . expr LE expr
+    (62) texp -> . expr GE expr
+    (63) texp -> . expr EQ expr
+    (64) texp -> . expr NE expr
+    (65) expr -> . term
+    (66) expr -> . expr PLUS term
+    (67) expr -> . expr MINUS term
+    (68) term -> . fact
+    (69) term -> . term TIMES fact
+    (70) term -> . term DIVIDE fact
+    (71) fact -> . LPAREN aexp RPAREN
+    (72) fact -> . lit
+    (73) fact -> . cvar
+    (74) fact -> . cfunc
+    (26) lit -> . CTEI
+    (27) lit -> . CTEF
+    (44) cvar -> . ID
+    (45) cvar -> . ID LBRACKET expr RBRACKET
+    (75) cfunc -> . ID LPAREN cvar RPAREN SEMI
+    (76) cfunc -> . ID LPAREN RPAREN SEMI
+
+    LPAREN          shift and go to state 48
+    CTEI            shift and go to state 52
+    CTEF            shift and go to state 53
+    ID              shift and go to state 54
+
+    texp                           shift and go to state 139
+    expr                           shift and go to state 45
+    term                           shift and go to state 46
+    fact                           shift and go to state 47
+    lit                            shift and go to state 49
+    cvar                           shift and go to state 50
+    cfunc                          shift and go to state 51
+
+state 121
+
+    (45) cvar -> ID LBRACKET expr . RBRACKET
+    (66) expr -> expr . PLUS term
+    (67) expr -> expr . MINUS term
+
+    RBRACKET        shift and go to state 140
+    PLUS            shift and go to state 80
+    MINUS           shift and go to state 81
+
+
+state 122
+
+    (40) while -> WHILE gotoQuadWhile LPAREN aexp . RPAREN gotofQuadWhile DO bloque_use fill_while
+
+    RPAREN          shift and go to state 141
+
+
+state 123
+
+    (33) forloop -> FOR asignavar forJump texp . forQuad DO bloque_use fill_for
+    (35) forQuad -> .
+
+    DO              reduce using rule 35 (forQuad -> .)
+
+    forQuad                        shift and go to state 142
+
+state 124
+
+    (28) write -> OUT LPAREN write_aux RPAREN . SEMI
+
+    SEMI            shift and go to state 143
+
+
+state 125
+
+    (30) write_aux -> write_aux2 COMMA . write_aux
+    (29) write_aux -> . write_aux2
+    (30) write_aux -> . write_aux2 COMMA write_aux
+    (31) write_aux2 -> . cvar
+    (32) write_aux2 -> . LETRERO
+    (44) cvar -> . ID
+    (45) cvar -> . ID LBRACKET expr RBRACKET
+
+    LETRERO         shift and go to state 93
+    ID              shift and go to state 64
+
+    write_aux2                     shift and go to state 91
+    write_aux                      shift and go to state 144
+    cvar                           shift and go to state 92
+
+state 126
+
+    (49) read -> GET LPAREN read_aux RPAREN .
+
+    ID              reduce using rule 49 (read -> GET LPAREN read_aux RPAREN .)
+    FUNCTION        reduce using rule 49 (read -> GET LPAREN read_aux RPAREN .)
+    IF              reduce using rule 49 (read -> GET LPAREN read_aux RPAREN .)
+    WHILE           reduce using rule 49 (read -> GET LPAREN read_aux RPAREN .)
+    FOR             reduce using rule 49 (read -> GET LPAREN read_aux RPAREN .)
+    OUT             reduce using rule 49 (read -> GET LPAREN read_aux RPAREN .)
+    GET             reduce using rule 49 (read -> GET LPAREN read_aux RPAREN .)
+    INT             reduce using rule 49 (read -> GET LPAREN read_aux RPAREN .)
+    FLOAT           reduce using rule 49 (read -> GET LPAREN read_aux RPAREN .)
+    CHAR            reduce using rule 49 (read -> GET LPAREN read_aux RPAREN .)
+    DRAW            reduce using rule 49 (read -> GET LPAREN read_aux RPAREN .)
+    MAIN            reduce using rule 49 (read -> GET LPAREN read_aux RPAREN .)
+    RBRACE          reduce using rule 49 (read -> GET LPAREN read_aux RPAREN .)
+    RETURN          reduce using rule 49 (read -> GET LPAREN read_aux RPAREN .)
+
+
+state 127
+
+    (51) read_aux -> ID COMMA . read_aux
+    (50) read_aux -> . ID
+    (51) read_aux -> . ID COMMA read_aux
+
+    ID              shift and go to state 95
+
+    read_aux                       shift and go to state 145
+
+state 128
+
+    (88) draw_line -> DRAW CTEI CTEI CTEI . CTEI
+
+    CTEI            shift and go to state 146
+
+
+state 129
+
+    (48) asignaarr -> ID LBRACKET expr RBRACKET EQUALS . expr SEMI
+    (65) expr -> . term
+    (66) expr -> . expr PLUS term
+    (67) expr -> . expr MINUS term
+    (68) term -> . fact
+    (69) term -> . term TIMES fact
+    (70) term -> . term DIVIDE fact
+    (71) fact -> . LPAREN aexp RPAREN
+    (72) fact -> . lit
+    (73) fact -> . cvar
+    (74) fact -> . cfunc
+    (26) lit -> . CTEI
+    (27) lit -> . CTEF
+    (44) cvar -> . ID
+    (45) cvar -> . ID LBRACKET expr RBRACKET
+    (75) cfunc -> . ID LPAREN cvar RPAREN SEMI
+    (76) cfunc -> . ID LPAREN RPAREN SEMI
+
+    LPAREN          shift and go to state 48
+    CTEI            shift and go to state 52
+    CTEF            shift and go to state 53
+    ID              shift and go to state 54
+
+    expr                           shift and go to state 147
+    term                           shift and go to state 46
+    fact                           shift and go to state 47
+    lit                            shift and go to state 49
+    cvar                           shift and go to state 50
+    cfunc                          shift and go to state 51
+
+state 130
+
+    (75) cfunc -> ID LPAREN cvar RPAREN SEMI .
+
+    ID              reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+    FUNCTION        reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+    IF              reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+    WHILE           reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+    FOR             reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+    OUT             reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+    GET             reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+    INT             reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+    FLOAT           reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+    CHAR            reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+    DRAW            reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+    MAIN            reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+    RBRACE          reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+    RETURN          reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+    TIMES           reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+    DIVIDE          reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+    LT              reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+    GT              reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+    LE              reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+    GE              reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+    EQ              reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+    NE              reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+    PLUS            reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+    MINUS           reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+    THEN            reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+    SEMI            reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+    RBRACKET        reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+    AND             reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+    OR              reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+    RPAREN          reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+    DO              reduce using rule 75 (cfunc -> ID LPAREN cvar RPAREN SEMI .)
+
+
+state 131
+
+    (3) bloque_use -> LBRACE bloque RBRACE .
+
+    $end            reduce using rule 3 (bloque_use -> LBRACE bloque RBRACE .)
+    ID              reduce using rule 3 (bloque_use -> LBRACE bloque RBRACE .)
+    FUNCTION        reduce using rule 3 (bloque_use -> LBRACE bloque RBRACE .)
+    IF              reduce using rule 3 (bloque_use -> LBRACE bloque RBRACE .)
+    WHILE           reduce using rule 3 (bloque_use -> LBRACE bloque RBRACE .)
+    FOR             reduce using rule 3 (bloque_use -> LBRACE bloque RBRACE .)
+    OUT             reduce using rule 3 (bloque_use -> LBRACE bloque RBRACE .)
+    GET             reduce using rule 3 (bloque_use -> LBRACE bloque RBRACE .)
+    INT             reduce using rule 3 (bloque_use -> LBRACE bloque RBRACE .)
+    FLOAT           reduce using rule 3 (bloque_use -> LBRACE bloque RBRACE .)
+    CHAR            reduce using rule 3 (bloque_use -> LBRACE bloque RBRACE .)
+    DRAW            reduce using rule 3 (bloque_use -> LBRACE bloque RBRACE .)
+    MAIN            reduce using rule 3 (bloque_use -> LBRACE bloque RBRACE .)
+    RBRACE          reduce using rule 3 (bloque_use -> LBRACE bloque RBRACE .)
+    RETURN          reduce using rule 3 (bloque_use -> LBRACE bloque RBRACE .)
+
+
+state 132
+
+    (46) vararr -> type ID LBRACKET lit RBRACKET . SEMI
+
+    SEMI            shift and go to state 148
+
+
+state 133
+
+    (47) vararr -> type ID LBRACKET expr RBRACKET . SEMI
+
+    SEMI            shift and go to state 149
+
+
+state 134
+
+    (77) func -> FUNCTION type ID eraQuad param . body1 fillFunc
+    (54) body1 -> . LBRACE bloque RETURN RBRACE
+
+    LBRACE          shift and go to state 151
+
+    body1                          shift and go to state 150
+
+state 135
+
+    (82) param -> LPAREN . RPAREN
+    (83) param -> LPAREN . param_aux RPAREN
+    (84) param_aux -> . funcVar
+    (85) param_aux -> . funcVar COMMA param_aux
+    (79) funcVar -> . type ID
+    (21) type -> . INT
+    (22) type -> . FLOAT
+    (23) type -> . CHAR
+
+    RPAREN          shift and go to state 152
+    INT             shift and go to state 31
+    FLOAT           shift and go to state 32
+    CHAR            shift and go to state 33
+
+    param_aux                      shift and go to state 153
+    funcVar                        shift and go to state 154
+    type                           shift and go to state 155
+
+state 136
+
+    (78) func -> FUNCTION VOID ID eraQuad param . body2 fillFunc
+    (52) body2 -> . LBRACE bloque end RBRACE
+
+    LBRACE          shift and go to state 157
+
+    body2                          shift and go to state 156
+
+state 137
+
+    (37) ifelse -> IF texp gotoQuadIf THEN bloque_use . fill_if
+    (39) fill_if -> .
+
+    ID              reduce using rule 39 (fill_if -> .)
+    FUNCTION        reduce using rule 39 (fill_if -> .)
+    IF              reduce using rule 39 (fill_if -> .)
+    WHILE           reduce using rule 39 (fill_if -> .)
+    FOR             reduce using rule 39 (fill_if -> .)
+    OUT             reduce using rule 39 (fill_if -> .)
+    GET             reduce using rule 39 (fill_if -> .)
+    INT             reduce using rule 39 (fill_if -> .)
+    FLOAT           reduce using rule 39 (fill_if -> .)
+    CHAR            reduce using rule 39 (fill_if -> .)
+    DRAW            reduce using rule 39 (fill_if -> .)
+    MAIN            reduce using rule 39 (fill_if -> .)
+    RBRACE          reduce using rule 39 (fill_if -> .)
+    RETURN          reduce using rule 39 (fill_if -> .)
+
+    fill_if                        shift and go to state 158
+
+state 138
+
+    (56) aexp -> texp AND texp .
+
+    RPAREN          reduce using rule 56 (aexp -> texp AND texp .)
+
+
+state 139
+
+    (57) aexp -> texp OR texp .
+
+    RPAREN          reduce using rule 57 (aexp -> texp OR texp .)
+
+
+state 140
+
+    (45) cvar -> ID LBRACKET expr RBRACKET .
+
+    TIMES           reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+    DIVIDE          reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+    LT              reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+    GT              reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+    LE              reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+    GE              reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+    EQ              reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+    NE              reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+    PLUS            reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+    MINUS           reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+    THEN            reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+    SEMI            reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+    RBRACKET        reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+    RPAREN          reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+    AND             reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+    OR              reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+    COMMA           reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+    DO              reduce using rule 45 (cvar -> ID LBRACKET expr RBRACKET .)
+
+
+state 141
+
+    (40) while -> WHILE gotoQuadWhile LPAREN aexp RPAREN . gotofQuadWhile DO bloque_use fill_while
+    (42) gotofQuadWhile -> .
+
+    DO              reduce using rule 42 (gotofQuadWhile -> .)
+
+    gotofQuadWhile                 shift and go to state 159
+
+state 142
+
+    (33) forloop -> FOR asignavar forJump texp forQuad . DO bloque_use fill_for
+
+    DO              shift and go to state 160
+
+
+state 143
+
+    (28) write -> OUT LPAREN write_aux RPAREN SEMI .
+
+    ID              reduce using rule 28 (write -> OUT LPAREN write_aux RPAREN SEMI .)
+    FUNCTION        reduce using rule 28 (write -> OUT LPAREN write_aux RPAREN SEMI .)
+    IF              reduce using rule 28 (write -> OUT LPAREN write_aux RPAREN SEMI .)
+    WHILE           reduce using rule 28 (write -> OUT LPAREN write_aux RPAREN SEMI .)
+    FOR             reduce using rule 28 (write -> OUT LPAREN write_aux RPAREN SEMI .)
+    OUT             reduce using rule 28 (write -> OUT LPAREN write_aux RPAREN SEMI .)
+    GET             reduce using rule 28 (write -> OUT LPAREN write_aux RPAREN SEMI .)
+    INT             reduce using rule 28 (write -> OUT LPAREN write_aux RPAREN SEMI .)
+    FLOAT           reduce using rule 28 (write -> OUT LPAREN write_aux RPAREN SEMI .)
+    CHAR            reduce using rule 28 (write -> OUT LPAREN write_aux RPAREN SEMI .)
+    DRAW            reduce using rule 28 (write -> OUT LPAREN write_aux RPAREN SEMI .)
+    MAIN            reduce using rule 28 (write -> OUT LPAREN write_aux RPAREN SEMI .)
+    RBRACE          reduce using rule 28 (write -> OUT LPAREN write_aux RPAREN SEMI .)
+    RETURN          reduce using rule 28 (write -> OUT LPAREN write_aux RPAREN SEMI .)
+
+
+state 144
+
+    (30) write_aux -> write_aux2 COMMA write_aux .
+
+    RPAREN          reduce using rule 30 (write_aux -> write_aux2 COMMA write_aux .)
+
+
+state 145
+
+    (51) read_aux -> ID COMMA read_aux .
+
+    RPAREN          reduce using rule 51 (read_aux -> ID COMMA read_aux .)
+
+
+state 146
+
+    (88) draw_line -> DRAW CTEI CTEI CTEI CTEI .
+
+    ID              reduce using rule 88 (draw_line -> DRAW CTEI CTEI CTEI CTEI .)
+    FUNCTION        reduce using rule 88 (draw_line -> DRAW CTEI CTEI CTEI CTEI .)
+    IF              reduce using rule 88 (draw_line -> DRAW CTEI CTEI CTEI CTEI .)
+    WHILE           reduce using rule 88 (draw_line -> DRAW CTEI CTEI CTEI CTEI .)
+    FOR             reduce using rule 88 (draw_line -> DRAW CTEI CTEI CTEI CTEI .)
+    OUT             reduce using rule 88 (draw_line -> DRAW CTEI CTEI CTEI CTEI .)
+    GET             reduce using rule 88 (draw_line -> DRAW CTEI CTEI CTEI CTEI .)
+    INT             reduce using rule 88 (draw_line -> DRAW CTEI CTEI CTEI CTEI .)
+    FLOAT           reduce using rule 88 (draw_line -> DRAW CTEI CTEI CTEI CTEI .)
+    CHAR            reduce using rule 88 (draw_line -> DRAW CTEI CTEI CTEI CTEI .)
+    DRAW            reduce using rule 88 (draw_line -> DRAW CTEI CTEI CTEI CTEI .)
+    MAIN            reduce using rule 88 (draw_line -> DRAW CTEI CTEI CTEI CTEI .)
+    RBRACE          reduce using rule 88 (draw_line -> DRAW CTEI CTEI CTEI CTEI .)
+    RETURN          reduce using rule 88 (draw_line -> DRAW CTEI CTEI CTEI CTEI .)
+
+
+state 147
+
+    (48) asignaarr -> ID LBRACKET expr RBRACKET EQUALS expr . SEMI
+    (66) expr -> expr . PLUS term
+    (67) expr -> expr . MINUS term
+
+    SEMI            shift and go to state 161
+    PLUS            shift and go to state 80
+    MINUS           shift and go to state 81
+
+
+state 148
+
+    (46) vararr -> type ID LBRACKET lit RBRACKET SEMI .
+
+    ID              reduce using rule 46 (vararr -> type ID LBRACKET lit RBRACKET SEMI .)
+    FUNCTION        reduce using rule 46 (vararr -> type ID LBRACKET lit RBRACKET SEMI .)
+    IF              reduce using rule 46 (vararr -> type ID LBRACKET lit RBRACKET SEMI .)
+    WHILE           reduce using rule 46 (vararr -> type ID LBRACKET lit RBRACKET SEMI .)
+    FOR             reduce using rule 46 (vararr -> type ID LBRACKET lit RBRACKET SEMI .)
+    OUT             reduce using rule 46 (vararr -> type ID LBRACKET lit RBRACKET SEMI .)
+    GET             reduce using rule 46 (vararr -> type ID LBRACKET lit RBRACKET SEMI .)
+    INT             reduce using rule 46 (vararr -> type ID LBRACKET lit RBRACKET SEMI .)
+    FLOAT           reduce using rule 46 (vararr -> type ID LBRACKET lit RBRACKET SEMI .)
+    CHAR            reduce using rule 46 (vararr -> type ID LBRACKET lit RBRACKET SEMI .)
+    DRAW            reduce using rule 46 (vararr -> type ID LBRACKET lit RBRACKET SEMI .)
+    MAIN            reduce using rule 46 (vararr -> type ID LBRACKET lit RBRACKET SEMI .)
+    RBRACE          reduce using rule 46 (vararr -> type ID LBRACKET lit RBRACKET SEMI .)
+    RETURN          reduce using rule 46 (vararr -> type ID LBRACKET lit RBRACKET SEMI .)
+
+
+state 149
+
+    (47) vararr -> type ID LBRACKET expr RBRACKET SEMI .
+
+    ID              reduce using rule 47 (vararr -> type ID LBRACKET expr RBRACKET SEMI .)
+    FUNCTION        reduce using rule 47 (vararr -> type ID LBRACKET expr RBRACKET SEMI .)
+    IF              reduce using rule 47 (vararr -> type ID LBRACKET expr RBRACKET SEMI .)
+    WHILE           reduce using rule 47 (vararr -> type ID LBRACKET expr RBRACKET SEMI .)
+    FOR             reduce using rule 47 (vararr -> type ID LBRACKET expr RBRACKET SEMI .)
+    OUT             reduce using rule 47 (vararr -> type ID LBRACKET expr RBRACKET SEMI .)
+    GET             reduce using rule 47 (vararr -> type ID LBRACKET expr RBRACKET SEMI .)
+    INT             reduce using rule 47 (vararr -> type ID LBRACKET expr RBRACKET SEMI .)
+    FLOAT           reduce using rule 47 (vararr -> type ID LBRACKET expr RBRACKET SEMI .)
+    CHAR            reduce using rule 47 (vararr -> type ID LBRACKET expr RBRACKET SEMI .)
+    DRAW            reduce using rule 47 (vararr -> type ID LBRACKET expr RBRACKET SEMI .)
+    MAIN            reduce using rule 47 (vararr -> type ID LBRACKET expr RBRACKET SEMI .)
+    RBRACE          reduce using rule 47 (vararr -> type ID LBRACKET expr RBRACKET SEMI .)
+    RETURN          reduce using rule 47 (vararr -> type ID LBRACKET expr RBRACKET SEMI .)
+
+
+state 150
+
+    (77) func -> FUNCTION type ID eraQuad param body1 . fillFunc
+    (81) fillFunc -> .
+
+    ID              reduce using rule 81 (fillFunc -> .)
+    FUNCTION        reduce using rule 81 (fillFunc -> .)
+    IF              reduce using rule 81 (fillFunc -> .)
+    WHILE           reduce using rule 81 (fillFunc -> .)
+    FOR             reduce using rule 81 (fillFunc -> .)
+    OUT             reduce using rule 81 (fillFunc -> .)
+    GET             reduce using rule 81 (fillFunc -> .)
+    INT             reduce using rule 81 (fillFunc -> .)
+    FLOAT           reduce using rule 81 (fillFunc -> .)
+    CHAR            reduce using rule 81 (fillFunc -> .)
+    DRAW            reduce using rule 81 (fillFunc -> .)
+    MAIN            reduce using rule 81 (fillFunc -> .)
+    RBRACE          reduce using rule 81 (fillFunc -> .)
+    RETURN          reduce using rule 81 (fillFunc -> .)
+
+    fillFunc                       shift and go to state 162
+
+state 151
+
+    (54) body1 -> LBRACE . bloque RETURN RBRACE
+    (4) bloque -> . estatuto bloque
+    (5) bloque -> . empty
+    (6) estatuto -> . asigna
+    (7) estatuto -> . asignavar
+    (8) estatuto -> . asignaarr
+    (9) estatuto -> . vararr
+    (10) estatuto -> . var
+    (11) estatuto -> . func
+    (12) estatuto -> . ifelse
+    (13) estatuto -> . while
+    (14) estatuto -> . forloop
+    (15) estatuto -> . write
+    (16) estatuto -> . read
+    (17) estatuto -> . fun_esp
+    (18) estatuto -> . cvar
+    (19) estatuto -> . cfunc
+    (89) empty -> .
+    (24) asigna -> . ID EQUALS lit SEMI
+    (25) asignavar -> . ID EQUALS expr SEMI
+    (48) asignaarr -> . ID LBRACKET expr RBRACKET EQUALS expr SEMI
+    (46) vararr -> . type ID LBRACKET lit RBRACKET SEMI
+    (47) vararr -> . type ID LBRACKET expr RBRACKET SEMI
+    (20) var -> . type ID SEMI
+    (77) func -> . FUNCTION type ID eraQuad param body1 fillFunc
+    (78) func -> . FUNCTION VOID ID eraQuad param body2 fillFunc
+    (37) ifelse -> . IF texp gotoQuadIf THEN bloque_use fill_if
+    (40) while -> . WHILE gotoQuadWhile LPAREN aexp RPAREN gotofQuadWhile DO bloque_use fill_while
+    (33) forloop -> . FOR asignavar forJump texp forQuad DO bloque_use fill_for
+    (28) write -> . OUT LPAREN write_aux RPAREN SEMI
+    (49) read -> . GET LPAREN read_aux RPAREN
+    (86) fun_esp -> . draw_line
+    (44) cvar -> . ID
+    (45) cvar -> . ID LBRACKET expr RBRACKET
+    (75) cfunc -> . ID LPAREN cvar RPAREN SEMI
+    (76) cfunc -> . ID LPAREN RPAREN SEMI
+    (21) type -> . INT
+    (22) type -> . FLOAT
+    (23) type -> . CHAR
+    (88) draw_line -> . DRAW CTEI CTEI CTEI CTEI
+
+    RETURN          reduce using rule 89 (empty -> .)
+    ID              shift and go to state 5
+    FUNCTION        shift and go to state 24
+    IF              shift and go to state 25
+    WHILE           shift and go to state 26
+    FOR             shift and go to state 27
+    OUT             shift and go to state 28
+    GET             shift and go to state 29
+    INT             shift and go to state 31
+    FLOAT           shift and go to state 32
+    CHAR            shift and go to state 33
+    DRAW            shift and go to state 34
+
+    bloque                         shift and go to state 163
+    estatuto                       shift and go to state 7
+    empty                          shift and go to state 8
+    asigna                         shift and go to state 9
+    asignavar                      shift and go to state 10
+    asignaarr                      shift and go to state 11
+    vararr                         shift and go to state 12
+    var                            shift and go to state 13
+    func                           shift and go to state 14
+    ifelse                         shift and go to state 15
+    while                          shift and go to state 16
+    forloop                        shift and go to state 17
+    write                          shift and go to state 18
+    read                           shift and go to state 19
+    fun_esp                        shift and go to state 20
+    cvar                           shift and go to state 21
+    cfunc                          shift and go to state 22
+    type                           shift and go to state 23
+    draw_line                      shift and go to state 30
+
+state 152
+
+    (82) param -> LPAREN RPAREN .
+
+    LBRACE          reduce using rule 82 (param -> LPAREN RPAREN .)
+
+
+state 153
+
+    (83) param -> LPAREN param_aux . RPAREN
+
+    RPAREN          shift and go to state 164
+
+
+state 154
+
+    (84) param_aux -> funcVar .
+    (85) param_aux -> funcVar . COMMA param_aux
+
+    RPAREN          reduce using rule 84 (param_aux -> funcVar .)
+    COMMA           shift and go to state 165
+
+
+state 155
+
+    (79) funcVar -> type . ID
+
+    ID              shift and go to state 166
+
+
+state 156
+
+    (78) func -> FUNCTION VOID ID eraQuad param body2 . fillFunc
+    (81) fillFunc -> .
+
+    ID              reduce using rule 81 (fillFunc -> .)
+    FUNCTION        reduce using rule 81 (fillFunc -> .)
+    IF              reduce using rule 81 (fillFunc -> .)
+    WHILE           reduce using rule 81 (fillFunc -> .)
+    FOR             reduce using rule 81 (fillFunc -> .)
+    OUT             reduce using rule 81 (fillFunc -> .)
+    GET             reduce using rule 81 (fillFunc -> .)
+    INT             reduce using rule 81 (fillFunc -> .)
+    FLOAT           reduce using rule 81 (fillFunc -> .)
+    CHAR            reduce using rule 81 (fillFunc -> .)
+    DRAW            reduce using rule 81 (fillFunc -> .)
+    MAIN            reduce using rule 81 (fillFunc -> .)
+    RBRACE          reduce using rule 81 (fillFunc -> .)
+    RETURN          reduce using rule 81 (fillFunc -> .)
+
+    fillFunc                       shift and go to state 167
+
+state 157
+
+    (52) body2 -> LBRACE . bloque end RBRACE
+    (4) bloque -> . estatuto bloque
+    (5) bloque -> . empty
+    (6) estatuto -> . asigna
+    (7) estatuto -> . asignavar
+    (8) estatuto -> . asignaarr
+    (9) estatuto -> . vararr
+    (10) estatuto -> . var
+    (11) estatuto -> . func
+    (12) estatuto -> . ifelse
+    (13) estatuto -> . while
+    (14) estatuto -> . forloop
+    (15) estatuto -> . write
+    (16) estatuto -> . read
+    (17) estatuto -> . fun_esp
+    (18) estatuto -> . cvar
+    (19) estatuto -> . cfunc
+    (89) empty -> .
+    (24) asigna -> . ID EQUALS lit SEMI
+    (25) asignavar -> . ID EQUALS expr SEMI
+    (48) asignaarr -> . ID LBRACKET expr RBRACKET EQUALS expr SEMI
+    (46) vararr -> . type ID LBRACKET lit RBRACKET SEMI
+    (47) vararr -> . type ID LBRACKET expr RBRACKET SEMI
+    (20) var -> . type ID SEMI
+    (77) func -> . FUNCTION type ID eraQuad param body1 fillFunc
+    (78) func -> . FUNCTION VOID ID eraQuad param body2 fillFunc
+    (37) ifelse -> . IF texp gotoQuadIf THEN bloque_use fill_if
+    (40) while -> . WHILE gotoQuadWhile LPAREN aexp RPAREN gotofQuadWhile DO bloque_use fill_while
+    (33) forloop -> . FOR asignavar forJump texp forQuad DO bloque_use fill_for
+    (28) write -> . OUT LPAREN write_aux RPAREN SEMI
+    (49) read -> . GET LPAREN read_aux RPAREN
+    (86) fun_esp -> . draw_line
+    (44) cvar -> . ID
+    (45) cvar -> . ID LBRACKET expr RBRACKET
+    (75) cfunc -> . ID LPAREN cvar RPAREN SEMI
+    (76) cfunc -> . ID LPAREN RPAREN SEMI
+    (21) type -> . INT
+    (22) type -> . FLOAT
+    (23) type -> . CHAR
+    (88) draw_line -> . DRAW CTEI CTEI CTEI CTEI
+
+    RBRACE          reduce using rule 89 (empty -> .)
+    ID              shift and go to state 5
+    FUNCTION        shift and go to state 24
+    IF              shift and go to state 25
+    WHILE           shift and go to state 26
+    FOR             shift and go to state 27
+    OUT             shift and go to state 28
+    GET             shift and go to state 29
+    INT             shift and go to state 31
+    FLOAT           shift and go to state 32
+    CHAR            shift and go to state 33
+    DRAW            shift and go to state 34
+
+    bloque                         shift and go to state 168
+    estatuto                       shift and go to state 7
+    empty                          shift and go to state 8
+    asigna                         shift and go to state 9
+    asignavar                      shift and go to state 10
+    asignaarr                      shift and go to state 11
+    vararr                         shift and go to state 12
+    var                            shift and go to state 13
+    func                           shift and go to state 14
+    ifelse                         shift and go to state 15
+    while                          shift and go to state 16
+    forloop                        shift and go to state 17
+    write                          shift and go to state 18
+    read                           shift and go to state 19
+    fun_esp                        shift and go to state 20
+    cvar                           shift and go to state 21
+    cfunc                          shift and go to state 22
+    type                           shift and go to state 23
+    draw_line                      shift and go to state 30
+
+state 158
+
+    (37) ifelse -> IF texp gotoQuadIf THEN bloque_use fill_if .
+
+    ID              reduce using rule 37 (ifelse -> IF texp gotoQuadIf THEN bloque_use fill_if .)
+    FUNCTION        reduce using rule 37 (ifelse -> IF texp gotoQuadIf THEN bloque_use fill_if .)
+    IF              reduce using rule 37 (ifelse -> IF texp gotoQuadIf THEN bloque_use fill_if .)
+    WHILE           reduce using rule 37 (ifelse -> IF texp gotoQuadIf THEN bloque_use fill_if .)
+    FOR             reduce using rule 37 (ifelse -> IF texp gotoQuadIf THEN bloque_use fill_if .)
+    OUT             reduce using rule 37 (ifelse -> IF texp gotoQuadIf THEN bloque_use fill_if .)
+    GET             reduce using rule 37 (ifelse -> IF texp gotoQuadIf THEN bloque_use fill_if .)
+    INT             reduce using rule 37 (ifelse -> IF texp gotoQuadIf THEN bloque_use fill_if .)
+    FLOAT           reduce using rule 37 (ifelse -> IF texp gotoQuadIf THEN bloque_use fill_if .)
+    CHAR            reduce using rule 37 (ifelse -> IF texp gotoQuadIf THEN bloque_use fill_if .)
+    DRAW            reduce using rule 37 (ifelse -> IF texp gotoQuadIf THEN bloque_use fill_if .)
+    MAIN            reduce using rule 37 (ifelse -> IF texp gotoQuadIf THEN bloque_use fill_if .)
+    RBRACE          reduce using rule 37 (ifelse -> IF texp gotoQuadIf THEN bloque_use fill_if .)
+    RETURN          reduce using rule 37 (ifelse -> IF texp gotoQuadIf THEN bloque_use fill_if .)
+
+
+state 159
+
+    (40) while -> WHILE gotoQuadWhile LPAREN aexp RPAREN gotofQuadWhile . DO bloque_use fill_while
+
+    DO              shift and go to state 169
+
+
+state 160
+
+    (33) forloop -> FOR asignavar forJump texp forQuad DO . bloque_use fill_for
+    (3) bloque_use -> . LBRACE bloque RBRACE
+
+    LBRACE          shift and go to state 68
+
+    bloque_use                     shift and go to state 170
+
+state 161
+
+    (48) asignaarr -> ID LBRACKET expr RBRACKET EQUALS expr SEMI .
+
+    ID              reduce using rule 48 (asignaarr -> ID LBRACKET expr RBRACKET EQUALS expr SEMI .)
+    FUNCTION        reduce using rule 48 (asignaarr -> ID LBRACKET expr RBRACKET EQUALS expr SEMI .)
+    IF              reduce using rule 48 (asignaarr -> ID LBRACKET expr RBRACKET EQUALS expr SEMI .)
+    WHILE           reduce using rule 48 (asignaarr -> ID LBRACKET expr RBRACKET EQUALS expr SEMI .)
+    FOR             reduce using rule 48 (asignaarr -> ID LBRACKET expr RBRACKET EQUALS expr SEMI .)
+    OUT             reduce using rule 48 (asignaarr -> ID LBRACKET expr RBRACKET EQUALS expr SEMI .)
+    GET             reduce using rule 48 (asignaarr -> ID LBRACKET expr RBRACKET EQUALS expr SEMI .)
+    INT             reduce using rule 48 (asignaarr -> ID LBRACKET expr RBRACKET EQUALS expr SEMI .)
+    FLOAT           reduce using rule 48 (asignaarr -> ID LBRACKET expr RBRACKET EQUALS expr SEMI .)
+    CHAR            reduce using rule 48 (asignaarr -> ID LBRACKET expr RBRACKET EQUALS expr SEMI .)
+    DRAW            reduce using rule 48 (asignaarr -> ID LBRACKET expr RBRACKET EQUALS expr SEMI .)
+    MAIN            reduce using rule 48 (asignaarr -> ID LBRACKET expr RBRACKET EQUALS expr SEMI .)
+    RBRACE          reduce using rule 48 (asignaarr -> ID LBRACKET expr RBRACKET EQUALS expr SEMI .)
+    RETURN          reduce using rule 48 (asignaarr -> ID LBRACKET expr RBRACKET EQUALS expr SEMI .)
+
+
+state 162
+
+    (77) func -> FUNCTION type ID eraQuad param body1 fillFunc .
+
+    ID              reduce using rule 77 (func -> FUNCTION type ID eraQuad param body1 fillFunc .)
+    FUNCTION        reduce using rule 77 (func -> FUNCTION type ID eraQuad param body1 fillFunc .)
+    IF              reduce using rule 77 (func -> FUNCTION type ID eraQuad param body1 fillFunc .)
+    WHILE           reduce using rule 77 (func -> FUNCTION type ID eraQuad param body1 fillFunc .)
+    FOR             reduce using rule 77 (func -> FUNCTION type ID eraQuad param body1 fillFunc .)
+    OUT             reduce using rule 77 (func -> FUNCTION type ID eraQuad param body1 fillFunc .)
+    GET             reduce using rule 77 (func -> FUNCTION type ID eraQuad param body1 fillFunc .)
+    INT             reduce using rule 77 (func -> FUNCTION type ID eraQuad param body1 fillFunc .)
+    FLOAT           reduce using rule 77 (func -> FUNCTION type ID eraQuad param body1 fillFunc .)
+    CHAR            reduce using rule 77 (func -> FUNCTION type ID eraQuad param body1 fillFunc .)
+    DRAW            reduce using rule 77 (func -> FUNCTION type ID eraQuad param body1 fillFunc .)
+    MAIN            reduce using rule 77 (func -> FUNCTION type ID eraQuad param body1 fillFunc .)
+    RBRACE          reduce using rule 77 (func -> FUNCTION type ID eraQuad param body1 fillFunc .)
+    RETURN          reduce using rule 77 (func -> FUNCTION type ID eraQuad param body1 fillFunc .)
+
+
+state 163
+
+    (54) body1 -> LBRACE bloque . RETURN RBRACE
+
+    RETURN          shift and go to state 171
+
+
+state 164
+
+    (83) param -> LPAREN param_aux RPAREN .
+
+    LBRACE          reduce using rule 83 (param -> LPAREN param_aux RPAREN .)
+
+
+state 165
+
+    (85) param_aux -> funcVar COMMA . param_aux
+    (84) param_aux -> . funcVar
+    (85) param_aux -> . funcVar COMMA param_aux
+    (79) funcVar -> . type ID
+    (21) type -> . INT
+    (22) type -> . FLOAT
+    (23) type -> . CHAR
+
+    INT             shift and go to state 31
+    FLOAT           shift and go to state 32
+    CHAR            shift and go to state 33
+
+    funcVar                        shift and go to state 154
+    param_aux                      shift and go to state 172
+    type                           shift and go to state 155
+
+state 166
+
+    (79) funcVar -> type ID .
+
+    COMMA           reduce using rule 79 (funcVar -> type ID .)
+    RPAREN          reduce using rule 79 (funcVar -> type ID .)
+
+
+state 167
+
+    (78) func -> FUNCTION VOID ID eraQuad param body2 fillFunc .
+
+    ID              reduce using rule 78 (func -> FUNCTION VOID ID eraQuad param body2 fillFunc .)
+    FUNCTION        reduce using rule 78 (func -> FUNCTION VOID ID eraQuad param body2 fillFunc .)
+    IF              reduce using rule 78 (func -> FUNCTION VOID ID eraQuad param body2 fillFunc .)
+    WHILE           reduce using rule 78 (func -> FUNCTION VOID ID eraQuad param body2 fillFunc .)
+    FOR             reduce using rule 78 (func -> FUNCTION VOID ID eraQuad param body2 fillFunc .)
+    OUT             reduce using rule 78 (func -> FUNCTION VOID ID eraQuad param body2 fillFunc .)
+    GET             reduce using rule 78 (func -> FUNCTION VOID ID eraQuad param body2 fillFunc .)
+    INT             reduce using rule 78 (func -> FUNCTION VOID ID eraQuad param body2 fillFunc .)
+    FLOAT           reduce using rule 78 (func -> FUNCTION VOID ID eraQuad param body2 fillFunc .)
+    CHAR            reduce using rule 78 (func -> FUNCTION VOID ID eraQuad param body2 fillFunc .)
+    DRAW            reduce using rule 78 (func -> FUNCTION VOID ID eraQuad param body2 fillFunc .)
+    MAIN            reduce using rule 78 (func -> FUNCTION VOID ID eraQuad param body2 fillFunc .)
+    RBRACE          reduce using rule 78 (func -> FUNCTION VOID ID eraQuad param body2 fillFunc .)
+    RETURN          reduce using rule 78 (func -> FUNCTION VOID ID eraQuad param body2 fillFunc .)
+
+
+state 168
+
+    (52) body2 -> LBRACE bloque . end RBRACE
+    (53) end -> .
+
+    RBRACE          reduce using rule 53 (end -> .)
+
+    end                            shift and go to state 173
+
+state 169
+
+    (40) while -> WHILE gotoQuadWhile LPAREN aexp RPAREN gotofQuadWhile DO . bloque_use fill_while
+    (3) bloque_use -> . LBRACE bloque RBRACE
+
+    LBRACE          shift and go to state 68
+
+    bloque_use                     shift and go to state 174
+
+state 170
+
+    (33) forloop -> FOR asignavar forJump texp forQuad DO bloque_use . fill_for
+    (36) fill_for -> .
+
+    ID              reduce using rule 36 (fill_for -> .)
+    FUNCTION        reduce using rule 36 (fill_for -> .)
+    IF              reduce using rule 36 (fill_for -> .)
+    WHILE           reduce using rule 36 (fill_for -> .)
+    FOR             reduce using rule 36 (fill_for -> .)
+    OUT             reduce using rule 36 (fill_for -> .)
+    GET             reduce using rule 36 (fill_for -> .)
+    INT             reduce using rule 36 (fill_for -> .)
+    FLOAT           reduce using rule 36 (fill_for -> .)
+    CHAR            reduce using rule 36 (fill_for -> .)
+    DRAW            reduce using rule 36 (fill_for -> .)
+    MAIN            reduce using rule 36 (fill_for -> .)
+    RBRACE          reduce using rule 36 (fill_for -> .)
+    RETURN          reduce using rule 36 (fill_for -> .)
+
+    fill_for                       shift and go to state 175
+
+state 171
+
+    (54) body1 -> LBRACE bloque RETURN . RBRACE
+
+    RBRACE          shift and go to state 176
+
+
+state 172
+
+    (85) param_aux -> funcVar COMMA param_aux .
+
+    RPAREN          reduce using rule 85 (param_aux -> funcVar COMMA param_aux .)
+
+
+state 173
+
+    (52) body2 -> LBRACE bloque end . RBRACE
+
+    RBRACE          shift and go to state 177
+
+
+state 174
+
+    (40) while -> WHILE gotoQuadWhile LPAREN aexp RPAREN gotofQuadWhile DO bloque_use . fill_while
+    (43) fill_while -> .
+
+    ID              reduce using rule 43 (fill_while -> .)
+    FUNCTION        reduce using rule 43 (fill_while -> .)
+    IF              reduce using rule 43 (fill_while -> .)
+    WHILE           reduce using rule 43 (fill_while -> .)
+    FOR             reduce using rule 43 (fill_while -> .)
+    OUT             reduce using rule 43 (fill_while -> .)
+    GET             reduce using rule 43 (fill_while -> .)
+    INT             reduce using rule 43 (fill_while -> .)
+    FLOAT           reduce using rule 43 (fill_while -> .)
+    CHAR            reduce using rule 43 (fill_while -> .)
+    DRAW            reduce using rule 43 (fill_while -> .)
+    MAIN            reduce using rule 43 (fill_while -> .)
+    RBRACE          reduce using rule 43 (fill_while -> .)
+    RETURN          reduce using rule 43 (fill_while -> .)
+
+    fill_while                     shift and go to state 178
+
+state 175
+
+    (33) forloop -> FOR asignavar forJump texp forQuad DO bloque_use fill_for .
+
+    ID              reduce using rule 33 (forloop -> FOR asignavar forJump texp forQuad DO bloque_use fill_for .)
+    FUNCTION        reduce using rule 33 (forloop -> FOR asignavar forJump texp forQuad DO bloque_use fill_for .)
+    IF              reduce using rule 33 (forloop -> FOR asignavar forJump texp forQuad DO bloque_use fill_for .)
+    WHILE           reduce using rule 33 (forloop -> FOR asignavar forJump texp forQuad DO bloque_use fill_for .)
+    FOR             reduce using rule 33 (forloop -> FOR asignavar forJump texp forQuad DO bloque_use fill_for .)
+    OUT             reduce using rule 33 (forloop -> FOR asignavar forJump texp forQuad DO bloque_use fill_for .)
+    GET             reduce using rule 33 (forloop -> FOR asignavar forJump texp forQuad DO bloque_use fill_for .)
+    INT             reduce using rule 33 (forloop -> FOR asignavar forJump texp forQuad DO bloque_use fill_for .)
+    FLOAT           reduce using rule 33 (forloop -> FOR asignavar forJump texp forQuad DO bloque_use fill_for .)
+    CHAR            reduce using rule 33 (forloop -> FOR asignavar forJump texp forQuad DO bloque_use fill_for .)
+    DRAW            reduce using rule 33 (forloop -> FOR asignavar forJump texp forQuad DO bloque_use fill_for .)
+    MAIN            reduce using rule 33 (forloop -> FOR asignavar forJump texp forQuad DO bloque_use fill_for .)
+    RBRACE          reduce using rule 33 (forloop -> FOR asignavar forJump texp forQuad DO bloque_use fill_for .)
+    RETURN          reduce using rule 33 (forloop -> FOR asignavar forJump texp forQuad DO bloque_use fill_for .)
+
+
+state 176
+
+    (54) body1 -> LBRACE bloque RETURN RBRACE .
+
+    ID              reduce using rule 54 (body1 -> LBRACE bloque RETURN RBRACE .)
+    FUNCTION        reduce using rule 54 (body1 -> LBRACE bloque RETURN RBRACE .)
+    IF              reduce using rule 54 (body1 -> LBRACE bloque RETURN RBRACE .)
+    WHILE           reduce using rule 54 (body1 -> LBRACE bloque RETURN RBRACE .)
+    FOR             reduce using rule 54 (body1 -> LBRACE bloque RETURN RBRACE .)
+    OUT             reduce using rule 54 (body1 -> LBRACE bloque RETURN RBRACE .)
+    GET             reduce using rule 54 (body1 -> LBRACE bloque RETURN RBRACE .)
+    INT             reduce using rule 54 (body1 -> LBRACE bloque RETURN RBRACE .)
+    FLOAT           reduce using rule 54 (body1 -> LBRACE bloque RETURN RBRACE .)
+    CHAR            reduce using rule 54 (body1 -> LBRACE bloque RETURN RBRACE .)
+    DRAW            reduce using rule 54 (body1 -> LBRACE bloque RETURN RBRACE .)
+    MAIN            reduce using rule 54 (body1 -> LBRACE bloque RETURN RBRACE .)
+    RBRACE          reduce using rule 54 (body1 -> LBRACE bloque RETURN RBRACE .)
+    RETURN          reduce using rule 54 (body1 -> LBRACE bloque RETURN RBRACE .)
+
+
+state 177
+
+    (52) body2 -> LBRACE bloque end RBRACE .
+
+    ID              reduce using rule 52 (body2 -> LBRACE bloque end RBRACE .)
+    FUNCTION        reduce using rule 52 (body2 -> LBRACE bloque end RBRACE .)
+    IF              reduce using rule 52 (body2 -> LBRACE bloque end RBRACE .)
+    WHILE           reduce using rule 52 (body2 -> LBRACE bloque end RBRACE .)
+    FOR             reduce using rule 52 (body2 -> LBRACE bloque end RBRACE .)
+    OUT             reduce using rule 52 (body2 -> LBRACE bloque end RBRACE .)
+    GET             reduce using rule 52 (body2 -> LBRACE bloque end RBRACE .)
+    INT             reduce using rule 52 (body2 -> LBRACE bloque end RBRACE .)
+    FLOAT           reduce using rule 52 (body2 -> LBRACE bloque end RBRACE .)
+    CHAR            reduce using rule 52 (body2 -> LBRACE bloque end RBRACE .)
+    DRAW            reduce using rule 52 (body2 -> LBRACE bloque end RBRACE .)
+    MAIN            reduce using rule 52 (body2 -> LBRACE bloque end RBRACE .)
+    RBRACE          reduce using rule 52 (body2 -> LBRACE bloque end RBRACE .)
+    RETURN          reduce using rule 52 (body2 -> LBRACE bloque end RBRACE .)
+
+
+state 178
+
+    (40) while -> WHILE gotoQuadWhile LPAREN aexp RPAREN gotofQuadWhile DO bloque_use fill_while .
+
+    ID              reduce using rule 40 (while -> WHILE gotoQuadWhile LPAREN aexp RPAREN gotofQuadWhile DO bloque_use fill_while .)
+    FUNCTION        reduce using rule 40 (while -> WHILE gotoQuadWhile LPAREN aexp RPAREN gotofQuadWhile DO bloque_use fill_while .)
+    IF              reduce using rule 40 (while -> WHILE gotoQuadWhile LPAREN aexp RPAREN gotofQuadWhile DO bloque_use fill_while .)
+    WHILE           reduce using rule 40 (while -> WHILE gotoQuadWhile LPAREN aexp RPAREN gotofQuadWhile DO bloque_use fill_while .)
+    FOR             reduce using rule 40 (while -> WHILE gotoQuadWhile LPAREN aexp RPAREN gotofQuadWhile DO bloque_use fill_while .)
+    OUT             reduce using rule 40 (while -> WHILE gotoQuadWhile LPAREN aexp RPAREN gotofQuadWhile DO bloque_use fill_while .)
+    GET             reduce using rule 40 (while -> WHILE gotoQuadWhile LPAREN aexp RPAREN gotofQuadWhile DO bloque_use fill_while .)
+    INT             reduce using rule 40 (while -> WHILE gotoQuadWhile LPAREN aexp RPAREN gotofQuadWhile DO bloque_use fill_while .)
+    FLOAT           reduce using rule 40 (while -> WHILE gotoQuadWhile LPAREN aexp RPAREN gotofQuadWhile DO bloque_use fill_while .)
+    CHAR            reduce using rule 40 (while -> WHILE gotoQuadWhile LPAREN aexp RPAREN gotofQuadWhile DO bloque_use fill_while .)
+    DRAW            reduce using rule 40 (while -> WHILE gotoQuadWhile LPAREN aexp RPAREN gotofQuadWhile DO bloque_use fill_while .)
+    MAIN            reduce using rule 40 (while -> WHILE gotoQuadWhile LPAREN aexp RPAREN gotofQuadWhile DO bloque_use fill_while .)
+    RBRACE          reduce using rule 40 (while -> WHILE gotoQuadWhile LPAREN aexp RPAREN gotofQuadWhile DO bloque_use fill_while .)
+    RETURN          reduce using rule 40 (while -> WHILE gotoQuadWhile LPAREN aexp RPAREN gotofQuadWhile DO bloque_use fill_while .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for SEMI in state 61 resolved as shift
+WARNING: shift/reduce conflict for RBRACKET in state 103 resolved as shift
