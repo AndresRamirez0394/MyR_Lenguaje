@@ -1,0 +1,27 @@
+programa test;
+
+function void fibo(int n){
+    int result; result = 1;
+    int prev; prev = -1;
+    int p;
+    int sum;
+    for p = 0; p <= n do {
+        sum = result + prev;
+        prev = result;
+        result = sum;
+        p = p + 1;
+    }
+    OUT("Fibonacci de: ", n, result);
+}
+
+main 
+{
+    int x; x = 10;
+    int j;
+    GET(j);
+    fibo(j);
+    for x = 15; x < 18 do {
+        x = x + 1;
+        j = j * 2;
+    }
+}

@@ -1,0 +1,13 @@
+programa myr;
+
+main {
+    int p; p = 1;
+    int i;
+    GET(i);
+    int arr[i];
+    for p = 0; p < i do {
+        arr[p] = p;
+        p = p + 1;
+        OUT("Valor: ", arr[p]);
+    }
+}

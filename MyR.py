@@ -245,34 +245,24 @@ def allocate_tempMem(var_type):
 
 const_cont = 0
 
-#Asigna memoria a constantes y los mete en el diccionario
-def allocate_constMem(value, const_type):
-    global const_int_memory, const_float_memory, const_char_memory, const_cont
 
-    if const_type == 'int':
-        memory_range = const_int_memory
-    elif const_type == 'float':
-        memory_range = const_float_memory
-    elif const_type == 'char':
-        memory_range = const_char_memory
-    else:
-        raise ValueError(f"Declared type does not exist: {const_type}")
+#Asigna memoria a arreglos
+def allocate_array(name, vartype, size, scope):
+
+    if tablaVars.exists_array(name):
+        raise ValueError(f"Array {name} has already been declared")
     
-    for key, info in constants.items():
-        if info['type'] == const_type and key == value:
-            return info['memory']
+    total_memory = allocate_memory(scope, vartype)
+
+    #Asigna memoria a cada casilla del arreglo
+    for i in range(size):
+        element_memory = total_memory + i
+        tablaVars.add_var(name + f"[{i}]", vartype, scope)
+        tablaVars.set_var_mem(name + f"[{i}]", element_memory)
+        tablaVars.set_var_value(name + f"[{i}]", 0)
+
+    tablaVars.add_array(name, vartype, scope, size)
     
-    memory_value = memory_range[0] + const_cont
-    constants[value] = {'memory': memory_value, 'type': const_type}
-    const_cont += 1
-
-    return memory_value
-
-def allocate_array(name, vartype, size):
-    tablaVars.add_var(name, vartype, 'global')
-    mem = allocate_memory('global', vartype)
-    tablaVars.set_var_mem(name, mem)
-    tablaVars.set_var_value(name, [None]*size)
 
 
 precedence = (
@@ -286,7 +276,6 @@ def p_programa(p):
     '''
     print("Ejecutando Programa", p[2])
     quadruple.append(('ENDPROG', p[2], '', ''))
-    print(quadruple)
 
 def p_main(p):
     '''
@@ -296,14 +285,12 @@ def p_main(p):
     global local
     local = True
     currLine += 1
-    print("Parsing main")
     p[0] = p[1]
 
 def p_bloque_use(p):
     '''
     bloque_use : LBRACE bloque RBRACE
     '''
-    print("Bloque se creo")
 
 def p_bloque(p):
     '''
@@ -330,7 +317,6 @@ def p_estatuto(p):
              | cvar
              | cfunc
     '''
-    print("Estatuto:", p[1])
 
 def p_var(p):
     '''
@@ -344,7 +330,6 @@ def p_var(p):
     else:
         scope = 'local'
     mem = allocate_memory(scope, vartype)
-    print(name, mem)
     tablaVars.add_var(name, vartype, scope)
     tablaVars.set_var_mem(name, mem)
     p[0] = "Declaracion"
@@ -457,22 +442,30 @@ def p_fill_for(p):
     gotoF = jumpStack.pop()
     goto = jumpStack.pop()
     jumpIndex = len(quadruple)
-    quadruple.append(('GOTO', None, None,goto))
+    quadruple.append(('GOTO', None, None, goto))
     quadruple[gotoF] = ('GOTOF', None, None, jumpIndex) 
 
 def p_ifelse(p):
     '''
     ifelse : IF texp gotoQuadIf THEN bloque_use fill_if
+           | IF texp gotoQuadIf THEN bloque_use fill_if ELSE bloque_use fill_else
 
     '''
-    
 
 def p_gotoQuad(p):
     '''
     gotoQuadIf : 
     '''
-    quadruple.append(('GOTOF', None, None, -1))
+    quadruple.append(('GOTOF', None, None, None))
     jumpStack.append(len(quadruple) - 1)
+
+def p_gotQuadelse(p):
+    '''
+    gotoQuadelse :
+    '''
+    quadruple.append(('GOTO', None, None, None))
+    jumpStack.append(len(quadruple) - 1)
+
 
 def p_fill_if(p):
     '''
@@ -482,9 +475,18 @@ def p_fill_if(p):
     jumpIndex = len(quadruple)
     quadruple[fill_index] = ('GOTOF', None, None, jumpIndex)
 
+def p_fill_else(p):
+    '''
+    fill_else : 
+    '''
+    index = jumpStack.pop()
+    jumpIndex = len(quadruple)
+    quadruple[index] = ('GOTO', None, None, jumpIndex)
+
+
 def p_while(p):
     '''
-    while : WHILE gotoQuadWhile LPAREN aexp RPAREN gotofQuadWhile DO bloque_use fill_while
+    while : WHILE gotoQuadWhile LPAREN texp RPAREN gotofQuadWhile DO bloque_use fill_while
 
     '''
 def p_gotoQuadWhile(p):
@@ -525,20 +527,35 @@ def p_cvar(p):
             print(f"Error: Variable '{var_name}' has not been declared")
             p[0] = None
     else:
-        var_name = p[1]
+        element = str(p[1]) + str(p[2]) + str(p[3]) + str(p[4])
+        if tablaVars.exists_var(element):
+            p[0] = tablaVars.get_var_mem(element)
+        else:
+            var = p[3]
+            index = tablaVars.get_value_by_memory(var)
+            element = str(p[1]) + str(p[2]) + str(index) + str(p[4])
+            p[0] = tablaVars.get_var_mem(element)
 
 
 def p_var_array(p):
     '''
-    vararr : type ID LBRACKET lit RBRACKET SEMI
-           | type ID LBRACKET expr RBRACKET SEMI
+    vararr : type ID LBRACKET cvar RBRACKET SEMI
+           | type ID LBRACKET lit RBRACKET SEMI
     '''
+    global local
+    if not local:
+        scope = 'global'
+    else:
+        scope = 'local'
     arrType = p[1]
     arr_name = p[2]
-    mem = p[4]
-    size = tablaVars.get_value_by_memory(mem)
-    print(size)
-    allocate_array(arr_name, arrType, size)
+    expr = p[4]
+    var = tablaVars.get_name_by_mem(expr)
+    if tablaVars.exists_var(var):
+        size = tablaVars.get_value_by_memory(expr)
+        allocate_array(arr_name, arrType, size, scope)
+    else:
+        allocate_array(arr_name, arrType, expr, scope)
 
 def p_assign_array(p):
     '''
@@ -547,31 +564,97 @@ def p_assign_array(p):
     arrName = p[1]
     index = p[3]
     value = p[6]
-    arr_value(arrName, index, value)
-    
-def arr_value(name, index, value):
-    array = tablaVars.get_var_value(name)
-    if array is None:
-        raise ValueError(f"Array '{name}' does not exist or is not an array")
-    array[index] = get_value(value)
-    tablaVars.set_var_value(name, array)
+    element = str(p[1]) + str(p[2]) + str(p[3]) + str(p[4])
+    if not tablaVars.exists_array(arrName):
+        print(f"Error: Array {arrName} does not exist")
+        return
+    if tablaVars.exists_var(element):
+        index_val = tablaVars.get_var_mem(element)
+        quadruple.append(('=', value, None, index_val))
+    else:
+        index = tablaVars.get_value_by_memory(index)
+        element = str(p[1]) + str(p[2]) + str(index) + str(p[4])
+        if tablaVars.exists_var(element):  
+            index_val = tablaVars.get_var_mem(element)
+            quadruple.append(('=', value, None, index_val))
+
+
+
+def arr_value(arrName, index):
+    base = tablaVars.get_var_mem(arrName)
+    size = tablaVars.arr_size(arrName)
+    memory = base + index * size
+    return memory
+
 
 def p_read(p):
     '''
-    read : GET LPAREN read_aux RPAREN
+    read : GET LPAREN ID RPAREN SEMI
+         | GET LPAREN ID RPAREN SEMI read_aux
 
     '''
-    for variable in p[3]:
+    variable = p[3]
+    while True:
+        if not tablaVars.exists_var(variable):
+            print(f"Error: variable {variable} not found. You need to declare the variable first")
+            break
+
         userInput = input(f"Enter value for {variable}: ")
-        tablaVars.set_var_value(variable, userInput)
+        vartype = tablaVars.get_var_type(variable)
+
+        if vartype == 'int':
+            try:
+                userInput = int(userInput)
+            except ValueError:
+                print(f"Invalid input. Please enter an integer for {variable}")
+                continue
+            tablaVars.set_var_value(variable, userInput)
+            break
+        elif vartype == 'float':
+            try:
+                userInput = float(userInput)
+            except ValueError:
+                print(f"Invalid input. Please enter a float for {variable}")
+                continue
+            tablaVars.set_var_value(variable, userInput)
+            break
+        else:
+            print(f"Please enter a numerical value for {variable}")
+            break
+    p[0] = p[3]
 
 def p_read_aux(p):
     '''
-    read_aux : ID
-             | ID COMMA read_aux 
-
+    read_aux :
+             | read_aux2
     '''
-    p[0] = [p[1]] if len(p) == 2 else [p[1]] +p[3]
+
+def p_read_aux2(p):
+    '''
+    read_aux2 : COMMA GET LPAREN ID RPAREN SEMI
+    '''
+    variable = p[5]
+    varMem = tablaVars.get_var_mem(variable)
+    while True:
+        userInput = input(f"Enter value for {variable}: ")
+        vartype = tablaVars.get_var_type(variable)
+
+        try:
+            if vartype == 'int':
+                userInput = int(userInput)
+            elif vartype == 'float':
+                userInput = float(userInput)
+            else:
+                raise ValueError(f"Invalid variable type: {vartype}")
+        except ValueError as e:
+            print(f"Invalid input type: {e}")
+            continue
+
+        quadruple.append(('=', userInput, None, varMem))
+        break
+
+    p[0] = p[3]
+
 
 def p_body2(p):
     '''
@@ -748,12 +831,12 @@ def p_fillFunc(p):
     '''
     fillFunc :
     '''
+    global local
+    local = False
     endFunc = len(quadruple)
     currIndex = funcJump.pop()
-    print(currIndex)
     quadruple[currIndex] = ('ERA', None, None, endFunc)
     funcJump.append(currIndex)
-    print(funcJump)
 
 def p_param(p):
     '''
@@ -802,7 +885,7 @@ def p_error(p):
 
 parser = yacc.yacc()
 
-with open('test.txt', 'r') as file:
+with open('test3.txt', 'r') as file:
     code = file.read()
 
 lexer.input(code)
@@ -856,6 +939,7 @@ def execute_quadruples(quadruples):
             arg1 = get_value(arg1)
             arg2 = get_value(arg2)
 
+
             if op == '<':
                 Boolstack.append(arg1 < arg2)
             elif op == '>':
@@ -872,8 +956,7 @@ def execute_quadruples(quadruples):
                 Boolstack.append(arg1 and arg2)
             elif op == 'OR':
                 Boolstack.append(arg1 or arg2)
-            
-        
+                    
         elif op == '+' or op == '-' or op == '*' or op == '/':
             arg1_val = get_value(arg1)
             arg2_val = get_value(arg2)
@@ -889,7 +972,7 @@ def execute_quadruples(quadruples):
             elif op == '*':
                     result_value = arg1_val * arg2_val
             elif op == '/':
-                    result_value = arg1_val / arg2_val
+                    result_value = arg2_val / arg1_val
 
             tablaVars.set_temp_value(result, result_value)
             result_stack.append(result_value)

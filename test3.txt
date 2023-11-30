@@ -1,0 +1,12 @@
+programa myr;
+
+main {
+    int arr[4];
+    int k;
+    GET(k);
+    arr[0] = 3;
+    arr[1] = 20;
+    arr[2] = 12 - 5 + 3;
+    arr[3] = 4 + 22;
+    OUT(arr[0], arr[1], arr[2], arr[3]);
+}

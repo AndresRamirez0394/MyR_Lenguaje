@@ -1,14 +1,28 @@
 
 class Variable:
-    def __init__(self, name, vartype, scope):
+    def __init__(self, name, vartype, scope, size = None):
         self.name = name
         self.vartype = vartype
         self.scope = scope
         self.mem = None
         self.value = None
+        self.size = size
     
     def set_value(self, new_value):       
         self.value = new_value
+    def set_mem(self, new_mem):
+        self.mem = new_mem
+    def set_size(self, new_size):
+        self.size = new_size
+
+class Array:
+    def __init__(self, name, vartype, scope, size):
+        self.name = name
+        self.vartype = vartype
+        self.scope = scope
+        self.size = size
+        self.mem = None
+
     def set_mem(self, new_mem):
         self.mem = new_mem
 
@@ -28,6 +42,23 @@ class tabla_Vars:
     def __init__(self):
         self.variables = {}
         self.temps = {}
+        self.arrays = {}
+
+    def add_array(self, name, vartype, scope, size):
+        if name in self.arrays:
+            raise ValueError(f"Array '{name}' has already been declared.")
+        array = Array(name, vartype, scope, size)
+        self.arrays[name] = array
+
+    def get_array_size(self, name):
+        array = self.arrays.get(name, None)
+        if array:
+            return array.size
+        else:
+            raise ValueError(f"Array '{name}' does not exist")
+        
+    def exists_array(self, name):
+        return name in self.arrays
 
     def add_temp(self, mem):
         if mem in self.temps:
@@ -44,6 +75,14 @@ class tabla_Vars:
            temp.set_value(new_value)
         else:
             print("Temp Error")
+
+    def get_tempVal_memory(self, mem):
+        temp = self.get_temp(mem)
+        if temp:
+            return temp.value
+        else:
+            raise ValueError(f"Error in temps")
+    
 
     #add global variable to table
     def add_var(self, name, vartype, scope):
@@ -109,11 +148,18 @@ class tabla_Vars:
         for variable in self.variables.values():
             if variable.mem == memory:
                 return variable.vartype
+            
     def get_var_by_mem(self, mem):
         for variable in self.variables.values():
             if variable.mem == mem:
                 return variable
         return None        
+    
+    def get_name_by_mem(self, mem):
+        for variable in self.variables.values():
+            if variable.mem == mem:
+                return variable.name
+        return None
     
     def replace_var(self, old_var_mem, new_var_mem):
         old_var = None
@@ -130,7 +176,15 @@ class tabla_Vars:
         else:
             print(f"Error: Variable with memory {old_var_mem} not found")
 
+    #Return the size of a declared array
+    def arr_size(self, name):
+        variable = self.get_var(name)
+        if variable:
+            return variable.size
+        else:
+            raise ValueError(f"Array '{name}' does not exist")
 
+        
 
 #class to define functions
 class Function:
